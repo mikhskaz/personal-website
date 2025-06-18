@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue.woff2') format('woff2');
+}
+
+@theme {
+  --color-primary: #ff0055;
+  --color-secondary: #00ffaa;
+  --font-display: 'Bebas Neue';
+}
+
+body {
+  background-color: #333333;
+  /* letter-spacing: 0.05rem; */
+}
+
+:root {
+  font-family: 'Inter';
+  cursor: none;
+}
+
+@layer components {
+  .indicator-line {
+    height: 0.25rem;
+    width: 3px;
+    border-radius: 5px;
+    background-color: #fff;
+    transition-property: all;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  .nav-item {
+    cursor: none;
+    position: relative;
+
+  }
+
+  .indicator-line.active {
+    animation: indicator-line 0.5s ease infinite;
+    animation-delay: calc(var(--animation-order) * 0.1s);
+  }
+
+  .floating-nav {
+    background-color: black;
+    border-radius: 16px;
+  }
+  
+  .hero-heading {
+    font-size: 10rem;
+    color: white;
+    font-weight: 900;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .hero-text {
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+  }
+
+  .quote-author {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 900;
+    position: relative;
+  }
+
+  .quote-text {
+    font-style: italic;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .circle-img {
+    clip-path: circle(50%);
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  .impact-btn {
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    cursor: none;
+  }
+
+  .impact-btn:hover {
+    color: var(--color-secondary);
+    transition: color 0.3s ease-in-out;
+  }
+
+  .mask-clip-path {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .about-me-img {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 20;
+    height: 60vh;
+    width: 24rem; /* 96 * 0.25rem */
+    transform: translateX(-50%);
+    overflow: hidden;
+    /* border-radius: 1.5rem; */
+  
+    /* Responsive: medium and up */
+  }
+
+  @media screen and (min-width: 320px) {
+    .about-me-img {
+      width: screen;
+    }
+
+    .hero-heading {
+      font-size: 4rem;
+    }
+
+    .hero-text {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .quote-author {
+      font-size: 1.5rem;
+      margin-right: 2rem;
+    }
+    .quote-text {
+      max-width: 20rem;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      margin-right: 2rem;
+    }
+
+    .impact-btn {
+      font-size: 0rem;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+    }
+
+    .border-hsla {
+      border-width: 1px;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .bento-title {
+      font: "Bebas Neue";
+      font-size: 4rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .bento-tilt_1 {
+      position: relative;
+      border: 1px solid hsla(0, 0%, 100%, 0.1); /* adjust based on your 'border-hsla' */
+      grid-column: span 2 / span 2;
+      overflow: hidden;
+      border-radius: 0.375rem; /* Tailwind's rounded-md */
+      transition: transform 0.3s ease-out;
+    }
+    
+    .bento-tilt_2 {
+      position: relative;
+      grid-column: span 1 / span 1;
+      grid-row: span 1 / span 1;
+      overflow: hidden;
+      border-radius: 0.375rem;
+      transition: transform 0.3s ease-out;
+    }
+
+    @keyframes vertical-scroll {
+      0% {
+        transform: translateY(0%);
+      }
+      100% {
+        transform: translateY(-33.333%);
+      }
+    }
+    
+    .animate-vertical-scroll {
+      animation: vertical-scroll 10s linear infinite;
+    }
+  }
+
+  @media screen and (min-width: 640px) {
+    .hero-heading {
+      font-size: 4.5rem;
+    }
+
+    .quote-author {
+      font-size: 3rem;
+    }
+    .quote-text {
+      max-width: 35rem;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .impact-btn {
+      font-size: 0.5rem;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .hero-heading {
+      font-size: 5.3rem; /* Tailwind's text-9xl = 6rem (96px) */
+    }
+
+    .about-me-img {
+      height: 70vh;
+      width: 30vw;
+    }
+
+    .quote-author {
+      font-size: 3rem; /* Tailwind's text-5xl = 3rem (48px) */
+    }
+    .quote-text {
+      max-width: 35rem;
+      font-size: 2.5rem; /* Tailwind's text-xl = 1.25rem (20px) */
+      margin-bottom: 2rem; /* Tailwind's mb-8 = 2rem (32px) */
+    }
+  }
+
+  @media screen and (min-width: 1300px) {
+    .hero-heading {
+      font-size: 9.3rem; /* Tailwind's text-8xl = 6rem (96px) */
+    }
+
+    .hero-text {
+      font-size: 3rem; /* Tailwind's text-2xl = 1.5rem (24px) */
+    }
+
+    .quote-author {
+      font-size: 4rem; /* Tailwind's text-6xl = 4rem (64px) */
+    }
+    
+    .quote-text {
+      max-width: 55rem;
+      font-size: 3rem; /* Tailwind's text-2xl = 1.5rem (24px) */
+      margin-bottom: 4rem; /* Tailwind's mb-12 = 3rem (48px) */
+    }
+  }
+  
+}
+
+@keyframes indicator-line {
+  0% {
+    height: 4px;
+    transform: translateY(-0px);
+  }
+  50% {
+    height: 16px;
+    transform: translateY(-4px);
+  }
+  100% {
+    height: 4px;
+    transform: translateY(-0px);
+  }
+}
