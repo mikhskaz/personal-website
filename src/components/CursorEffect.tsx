@@ -76,7 +76,9 @@ export default function CursorEffect() {
 
   // Unified handler for both mousemove and touchmove (arrow + dot logic)
   const handlePointerMove = (e: MouseEvent | TouchEvent) => {
-    e.preventDefault();
+    if (e instanceof MouseEvent) {
+      e.preventDefault();
+    }
     const pt = extractPoint(e);
     const history = historyRef.current;
 
