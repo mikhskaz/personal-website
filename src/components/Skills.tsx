@@ -18,18 +18,18 @@ import {
     SiTypescript,
     SiHtml5,
     SiCss3,
-    SiDocker,
-    SiFastapi,
+    // SiDocker,
+    // SiFastapi,
     SiJupyter,
     SiVite,
     SiTailwindcss,
-    SiNextdotjs,
-    SiMongodb,
+    // SiNextdotjs,
+    // SiMongodb,
     SiPostgresql,
     SiFirebase,
-    SiDjango,
-    SiRust,
-    SiGraphql,
+    // SiDjango,
+    // SiRust,
+    // SiGraphql,
     SiLua,
     SiUnity,
     SiUnrealengine,
@@ -96,7 +96,7 @@ export const BentoCard = ({
   description,
   isComingSoon,
   icons,
-  images,
+  // images,
 }: BentoCardProps) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverOpacity, setHoverOpacity] = useState(0);
@@ -243,7 +243,7 @@ const Features = () => (
         { icon: <SiPandas key="pandas" />, name: "Pandas" },
         // { icon: <SiDocker key="docker" />, name: "Docker" },
         ]}
-        images={["img/cat.png", "img/cat.png", "img/cat.png","img/cat.png", "img/cat.png", "img/cat.png"]} // Example images
+        // images={["img/cat.png", "img/cat.png", "img/cat.png","img/cat.png", "img/cat.png", "img/cat.png"]} // Example images
       />
     </BentoTilt>
 

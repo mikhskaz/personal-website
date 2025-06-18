@@ -155,7 +155,7 @@ export default function CursorEffect() {
       let x = mouseRef.current.x;
       let y = mouseRef.current.y;
 
-      dots.current.forEach((dot, i) => {
+      dots.current.forEach((dot) => {
         // Move each dot 25% closer to (x, y)
         dot.x += (x - dot.x) * 0.25;
         dot.y += (y - dot.y) * 0.25;

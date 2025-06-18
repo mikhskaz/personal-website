@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
-import { TiLocationArrow } from "react-icons/ti";
+// import { TiLocationArrow } from "react-icons/ti";
 
 gsap.registerPlugin(ScrollTrigger);
 
