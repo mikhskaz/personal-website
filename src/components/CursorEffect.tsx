@@ -15,6 +15,17 @@ interface Dot {
 export default function CursorEffect() {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+  const isTouch = useRef(false);
+
+  useEffect(() => {
+    isTouch.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
+
+  // Don’t render anything on touch devices
+  if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+    return null;
+  }
+
   // === BEGIN: existing “arrow”‐cursor logic ===
   const historyRef = useRef<Coord[]>([]);
   const MAX_HISTORY = 30;
