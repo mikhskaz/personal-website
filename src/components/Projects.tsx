@@ -356,7 +356,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center pb-12 bg-primary w-full height-screen">
+    <div id="projects" className="flex flex-col items-center pb-12 bg-primary w-full height-screen">
       <div className="container px-3 md:px-10">
         <h2 className="hero-heading">Projects.</h2>
       <p className="hero-text mb-8">
