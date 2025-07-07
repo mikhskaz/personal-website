@@ -214,16 +214,14 @@ export const BentoCard = ({
 };
 
 const Features = () => (
-  <section id="skills" className="bg-gradient-to-t from-primary to-secondary pb-52">
-    <div className="container mx-auto px-3 md:px-10">
-      <div className="px-5">
-        <p className="hero-heading">
-          Skills.
-        </p>
-        <p className="hero-text">
-          What can I do?
-        </p>
-      </div>
+  <section id="skills" className="bg-gradient-to-t from-primary to-secondary">
+    <div className="container mx-auto md:px-10">
+      <p className="hero-heading">
+        Skills.
+      </p>
+      <p className="hero-text">
+        What can I do?
+      </p>
 
     <BentoTilt className="border-hsla bento_tilt_1 relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
       <BentoCard

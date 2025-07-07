@@ -181,7 +181,7 @@ const TAB_DATA: Record<string, TabSection> = {
  */
 const TabButton = ({ tabKey, title }: { tabKey: string; title: string }) => (
   <button
-    className="tab-btn pb-2 font-medium text-white hover:text-secondary transition cursor-none"
+    className="tab-btn pb-2 font-medium text-white text-2xl hover:text-secondary transition cursor-none"
     data-tab={tabKey}
     role="tab"
     aria-selected="false"
@@ -356,11 +356,13 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center pb-12 bg-primary text-center w-full height-screen">
-      <h2 className="hero-heading">Projects</h2>
-      <p className="hero-text max-w-5xl mb-8">
-        What I&apos;ve been working on, and what I&apos;m passionate about.
+    <div className="flex flex-col items-center pb-12 bg-primary w-full height-screen">
+      <div className="container px-3 md:px-10">
+        <h2 className="hero-heading">Projects.</h2>
+      <p className="hero-text mb-8">
+        What I&apos;ve been working on.
       </p>
+      </div>
 
       <div className="relative w-full border-b border-gray-300 mb-8">
         <div className="flex justify-center space-x-6" role="tablist">
