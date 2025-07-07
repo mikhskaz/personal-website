@@ -32,7 +32,7 @@ const Hero = () => {
                     </div>
                     <div className="absolute left-0 top-0 z-40 size-full">
                         <div className="mt-30 ml-10">
-                            <h1 className="hero-heading">Welcome to My Website.</h1>
+                            <h1 className="hero-heading">Mikhail</h1>
                             {/* <Button 
                                 id="about-button"
                                 title="About Me"
@@ -53,9 +53,8 @@ const Hero = () => {
                                 rightIcon={<TiLocationArrow className="inline-block ml-2" />}
                                 containerClass="bg-white text-black hover:bg-primary transition-colors duration-300 hover:text-white"
                             /> */}
-
-                            <p className="hero-text ml-1">Привет! My name is Mikhail,</p>
-                            <p className="hero-text ml-1">I am a <TypingRoles /></p>
+                            <p className="hero-text ml-1"><TypingRoles /></p>
+                            {/* <p className="hero-text ml-1"></p> */}
                         </div>
                     </div>
                     <h1 className="quote-text absolute bottom-12 right-5 z-40 font-display italic text-white leading-relaxed text-right">

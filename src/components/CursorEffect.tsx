@@ -15,17 +15,6 @@ interface Dot {
 export default function CursorEffect() {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const isTouch = useRef(false);
-
-  useEffect(() => {
-    isTouch.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  }, []);
-
-  // Don’t render anything on touch devices
-  if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
-    return null;
-  }
-
   // === BEGIN: existing “arrow”‐cursor logic ===
   const historyRef = useRef<Coord[]>([]);
   const MAX_HISTORY = 30;
@@ -87,9 +76,7 @@ export default function CursorEffect() {
 
   // Unified handler for both mousemove and touchmove (arrow + dot logic)
   const handlePointerMove = (e: MouseEvent | TouchEvent) => {
-    if (e instanceof MouseEvent) {
-      e.preventDefault();
-    }
+    e.preventDefault();
     const pt = extractPoint(e);
     const history = historyRef.current;
 
@@ -216,18 +203,14 @@ export default function CursorEffect() {
             transition: "none",
             opacity: (1 - i / NUM_DOTS).toFixed(2),
             zIndex: 9998,
-            // We set fontSize/color only if i===0 and wanted a visible rocket icon.
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          {/* If you want a rocket icon on the “first” dot (i===0), you can uncomment this: */}
-          {/* {i === 0 ? <IoIosRocket style={{ fontSize: "20px", color: "white" }} /> : null} */}
         </div>
       ))}
 
-      {/* === Arrow SVG (unchanged) === */}
       <svg
         ref={svgRef}
         width={28}

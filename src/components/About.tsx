@@ -1,3 +1,4 @@
+
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
@@ -106,8 +107,8 @@ const About = () => {
     return (
         <section id="about" className="min-h-screen w-screen">
             <div className="relative flex flex-col items-center">
-                <h1 className="hero-heading relative">About Me.</h1>
-                <div className="flex-row">
+                <h1 className="hero-heading relative">About Me</h1>
+                <div className="flex-row text-center">
                     <p className="hero-text max-w-5xl mb-16 mx-16">I am a fourth-year student at the University of Toronto specializing in Computer Science (Focus in AI) with a Major in Cognitive Science and Minor in Statistics.</p>
                 </div>
             </div>

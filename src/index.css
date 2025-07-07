@@ -12,20 +12,21 @@
   src: url('/fonts/BebasNeue.woff2') format('woff2');
 }
 
+/* French Ma */
 @theme {
-  --color-primary: #ff0055;
-  --color-secondary: #00ffaa;
+  --color-primary: #C23822;
+  --color-secondary: #a30002;
   --font-display: 'Bebas Neue';
 }
 
 body {
-  background-color: #333333;
+  background-color: #000000;
   /* letter-spacing: 0.05rem; */
 }
 
 :root {
   font-family: 'Inter';
-  cursor: none;
+  /* cursor: none; */
 }
 
 @layer components {
@@ -157,7 +158,7 @@ body {
 
     .bento-title {
       font: "Bebas Neue";
-      font-size: 3rem;
+      font-size: 4rem;
       font-weight: 700;
       color: white;
       margin-bottom: 0.5rem;
@@ -205,7 +206,7 @@ body {
     }
     .quote-text {
       max-width: 35rem;
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 1.5rem;
     }
 

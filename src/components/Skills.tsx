@@ -188,7 +188,7 @@ export const BentoCard = ({
         )}
         </div>
 
-        {/* Optional: Coming Soon Button */}
+        {/* Optional: Button */}
         {isComingSoon && (
         <div
             ref={hoverButtonRef}
@@ -216,7 +216,7 @@ export const BentoCard = ({
 const Features = () => (
   <section id="skills" className="bg-gradient-to-t from-primary to-secondary pb-52">
     <div className="container mx-auto px-3 md:px-10">
-      <div className="px-5 py-32">
+      <div className="px-5">
         <p className="hero-heading">
           Skills.
         </p>
@@ -316,8 +316,8 @@ const Features = () => (
         ]}
         />
       </BentoTilt>
-        <p className="hero-heading col-span-2">Thanks for visiting.</p>
-        <p className="hero-text col-span-2">Feel Free to contact me at any of the links below</p>
+        {/* <p className="hero-heading col-span-2">Thanks for visiting.</p>
+        <p className="hero-text col-span-2">Feel Free to contact me at any of the links below</p> */}
       </div>
     </div>
   </section>
