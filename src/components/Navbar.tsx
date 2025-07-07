@@ -110,7 +110,7 @@ const NavBar = () => {
           {/* Right: Navigation Links, Mobile Menu, and Audio Indicator */}
           <div className="items-center space-x-4 flex">
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-10">
+            <div className="hidden lg:flex items-center gap-10">
               {navItems.map((item, index) => {
                 const id = item.toLowerCase();
                 return (
@@ -132,7 +132,7 @@ const NavBar = () => {
             </div>
 
             {/* Mobile Menu Toggle */}
-            <div className="md:hidden relative">
+            <div className="lg:hidden relative">
               <button
                 className={`text-3xl p-2 cursor-pointer transition-colors duration-300 ${
                   menuOpen ? 'text-primary' : 'text-white'

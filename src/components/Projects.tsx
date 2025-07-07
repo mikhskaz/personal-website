@@ -181,7 +181,7 @@ const TAB_DATA: Record<string, TabSection> = {
  */
 const TabButton = ({ tabKey, title }: { tabKey: string; title: string }) => (
   <button
-    className="tab-btn pb-2 hover:text-secondary transition cursor-none text-white text-sm sm:text-lg md:text-2xl lg:text-3xl"
+    className="tab-btn pb-2 hover:text-secondary transition cursor-none text-white text-sm sm:text-lg md:text-1xl lg:text-2xl"
     data-tab={tabKey}
     role="tab"
     aria-selected="false"
