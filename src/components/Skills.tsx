@@ -215,7 +215,7 @@ export const BentoCard = ({
 
 const Features = () => (
   <section id="skills" className="bg-gradient-to-t from-primary to-secondary">
-    <div className="container mx-auto md:px-10">
+    <div className="container mx-auto md:px-10 p-3">
       <p className="hero-heading">
         Skills.
       </p>

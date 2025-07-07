@@ -181,7 +181,7 @@ const TAB_DATA: Record<string, TabSection> = {
  */
 const TabButton = ({ tabKey, title }: { tabKey: string; title: string }) => (
   <button
-    className="tab-btn pb-2 font-medium text-white text-2xl hover:text-secondary transition cursor-none"
+    className="tab-btn pb-2 hover:text-secondary transition cursor-none text-white text-sm sm:text-lg md:text-2xl lg:text-3xl"
     data-tab={tabKey}
     role="tab"
     aria-selected="false"
@@ -365,7 +365,7 @@ const Projects = () => {
       </div>
 
       <div className="relative w-full border-b border-gray-300 mb-8">
-        <div className="flex justify-center space-x-6" role="tablist">
+        <div className="flex justify-center space-x-6 px-3" role="tablist">
           {Object.entries(TAB_DATA).map(([key, { title }]) => (
             <TabButton key={key} tabKey={key} title={title} />
           ))}
