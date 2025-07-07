@@ -10,6 +10,7 @@ import Button from './Button';
 const navItems = ['Home', 
     'About', 
     'Skills', 
+    'Projects'
     // 'Contact'
 ];
 
