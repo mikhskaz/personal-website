@@ -87,7 +87,7 @@ const TAB_DATA: Record<string, TabSection> = {
         tech: ["Python", "OpenCV", "TensorFlow", "Keras"],
         fullDesc: "Real-time detection of facial expressions from the webcam. Uses a custom CNN architecture trained on the FER2013 dataset.",
         link: "https://github.com/mikhskaz/cnn-fer",
-        inProgress: true
+        inProgress: false
       },
       {
         projectTitle: "Stock Prediction",
@@ -128,7 +128,7 @@ const TAB_DATA: Record<string, TabSection> = {
         tech: ["TypeScript", "React", "Tailwind CSS"],
         fullDesc: "Featuring mail list and a responsive design.",
         link: "https://github.com/Thehashhobo/DU-Toronto-Webpage",
-        inProgress: true
+        inProgress: false
       },
       {
         projectTitle: "Portfolio Website",
@@ -137,7 +137,7 @@ const TAB_DATA: Record<string, TabSection> = {
         tech: ["TypeScript", "React", "Tailwind CSS"],
         fullDesc: "",
         link: "https://mikhskaz.com",
-        inProgress: true
+        inProgress: false
       },
     ]
   },
