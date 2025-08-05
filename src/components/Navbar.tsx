@@ -9,6 +9,7 @@ import Button from './Button';
 
 const navItems = ['Home', 
     'About', 
+    'Experience',
     'Skills', 
     'Projects'
     // 'Contact'
@@ -65,7 +66,7 @@ const NavBar = () => {
     });
   }, [isNavVisible]);
 
-  // Scroll spy: track active section
+  // Track active section
   useEffect(() => {
     const handleScroll = () => {
       const sectionElements = document.querySelectorAll("section[id]");
