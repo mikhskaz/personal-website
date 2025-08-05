@@ -118,7 +118,7 @@ const NavBar = () => {
                     key={index}
                     href={`#${id}`}
                     className={clsx(
-                      'relative uppercase font-bold text-2xl text-white cursor-none transition-all duration-300',
+                      'relative uppercase font-bold text-2xl text-white transition-all duration-300',
                       'after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)]',
                       activeSection === id
                         ? 'text-primary after:scale-x-100 after:origin-bottom-left'
@@ -148,7 +148,7 @@ const NavBar = () => {
                     <a
                       key={index}
                       href={`#${item.toLowerCase()}`}
-                      className="uppercase text-white text-xl tracking-wide hover:text-primary transition-colors duration-300 cursor-none"
+                      className="uppercase text-white text-xl tracking-wide hover:text-primary transition-colors duration-300"
                       onClick={() => setMenuOpen(false)}
                     >
                       {item}
@@ -161,7 +161,7 @@ const NavBar = () => {
             {/* Audio Indicator */}
             <button
               onClick={toggleAudioIndicator}
-              className="ml-4 flex items-center space-x-1"
+              className="ml-4 flex items-center space-x-1 cursor-pointer"
             >
               <audio
                 ref={audioElementRef}

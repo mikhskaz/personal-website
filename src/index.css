@@ -41,9 +41,7 @@ body {
   }
 
   .nav-item {
-    cursor: none;
     position: relative;
-
   }
 
   .indicator-line.active {
@@ -94,7 +92,6 @@ body {
     color: white;
     font-family: 'Inter', sans-serif;
     font-size: 1.25rem;
-    cursor: none;
   }
 
   .impact-btn:hover {

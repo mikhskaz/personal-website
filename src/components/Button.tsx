@@ -30,7 +30,7 @@ const Button = ({
           }
         : {})}
       className={clsx(
-        "group relative z-10 rounded-full px-6 md:px-10 py-6 text-black mr-3 mb-3 mt-3 cursor-none",
+        "group relative z-10 rounded-full px-6 md:px-10 py-6 text-black mr-3 mb-3 mt-3",
         containerClass
       )}
     >
