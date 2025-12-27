@@ -19,7 +19,7 @@ const experiences: ExperienceType[] = [
         title: "Research Trainee",
         duration: "Sep 2025 - Present",
         description: "Developing a computer vision model to detect and classify slip events at WinterLab KITE using pose estimation and neural networks.",
-        image: "/img/kite.png",
+        image: "/img/KITE.png",
         skills: ["Python", "Computer Vision", "Pose Estimation", "Deep Learning", "OpenCV"]
     },
     {
