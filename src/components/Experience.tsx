@@ -10,14 +10,21 @@ type ExperienceType = {
 
 const experiences: ExperienceType[] = [
     {
-        title: "AI Engineer",
-        duration: "Sep 2025",
-        description: "Incoming",
-        image: "public/img/kite.png"
+        title: "AI Software Developer",
+        duration: "Jan 2026 - May 2026",
+        description: "Incoming.",
+        image: "public/img/CGI.png"
+    },
+    {
+        title: "Research Trainee",
+        duration: "Sep 2025 - Present",
+        description: "Developing a computer vision model to detect and classify slip events at WinterLab KITE using pose estimation and neural networks.",
+        image: "public/img/kite.png",
+        skills: ["Python", "Computer Vision", "Pose Estimation", "Deep Learning", "OpenCV"]
     },
     {
         title: "AI Engineering Intern",
-        duration: "Jul 2025 - Present",
+        duration: "Jul 2025 - Aug 2025",
         description: "Implementing a RAG-supported generative AI pipeline for automated test case generation from user stories, codebase, and existing test cases. Product significantly improves test coverage and decreases manual testing time.",
         image: "public/img/digy4.png",
         skills: ["Generative AI", "Python", "LangChain", "OpenAI API", "Test Automation", "RAG", "Vector Databases", "Model Context Protocol"]
@@ -25,23 +32,24 @@ const experiences: ExperienceType[] = [
     {
         title: "Independent Researcher",
         duration: "Jul 2025 - Present",
-        description: "Researching and developing a novel bio-inspired generative AI for multi-modal text relevance. Creating a novel AI framework mimicking the human brain's memory and attention mechanisms, integrating cognitive science principles of multi-modal processing and adaptive attention, inspired by human learning across diverse sensory modalities (e.g. Braille, Sign Language, Speech) to address computational challenges like the frame problem. ",
+        description: "Researching and developing a novel bio-inspired generative AI for multi-modal text relevance. Creating a novel AI framework mimicking the human brain's memory and attention mechanisms, integrating cognitive science principles of multi-modal processing and adaptive attention, inspired by human learning across diverse sensory modalities (e.g. Braille, Sign Language, Speech) to address computational challenges like the frame problem.",
         image: "public/img/research.png",
         skills: ["Python", "Natural Language Processing", "Deep Learning", "Information Retrieval", "Argument Mining", "Neural Networks", "spaCy", "PyTextRank", "PyTorch"]
-    },
-    {
-        title: "Cognitive Science Researcher",
-        duration: "Aug 2024 - Present",
-        description: "Simulated the effects of arousal and valence on memory retention curves in a Python implementation of the Clarion Cognitive Architecture, showing a strong correlation between memory retention and emotion.",
-        image: "public/img/deppsych.png",
-        skills: ["Python", "Cognitive Science", "Clarion Cognitive Architecture", "Data Analysis", "scikit-learn", "Pandas", "NumPy"]
     },
     {
         title: "Frontend Developer",
         duration: "Contractual; May 2025 - June 2025",
         description: "Built a responsive, accessible, and performant web application for a local organization using React, TypeScript, and Tailwind CSS.",
-        image: "public/img/dutoronto.webp"
-    }
+        image: "public/img/dutoronto.webp",
+        skills: ["React", "TypeScript", "Tailwind CSS"]
+    },
+    {
+        title: "Student Researcher",
+        duration: "Aug 2024 - Apr 2025",
+        description: "Simulated the effects of arousal and valence on memory retention curves in a Python implementation of the Clarion Cognitive Architecture, showing a strong correlation between memory retention and emotion.",
+        image: "public/img/deppsych.png",
+        skills: ["Python", "Cognitive Science", "Clarion Cognitive Architecture", "Data Analysis", "scikit-learn", "Pandas", "NumPy"]
+    },
 ];
 
 const ExperienceStyles = (): React.ReactElement => (
@@ -251,7 +259,7 @@ const Experience = (): React.ReactElement => {
                 <p className="hero-heading">
                     Experiences.
                 </p>
-                <p className="hero-text">
+                <p className="hero-text pb-10">
                     Where I have grown.
                 </p>
             </section>

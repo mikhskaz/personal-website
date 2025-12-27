@@ -101,9 +101,9 @@ const NavBar = () => {
           <div className="flex items-center gap-7">
           <Button
             id="resume-button"
-            title="Resume"
+            title="LinkedIn"
             rightIcon={<TiLocationArrow />}
-            href="/resume.pdf"
+            href="https://www.linkedin.com/in/mikhail-skazhenyuk-1b44bb271/"
             containerClass="bg-white hover:bg-primary hover:text-white"
             />
           </div>
