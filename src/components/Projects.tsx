@@ -73,6 +73,22 @@ const TAB_DATA: Record<string, TabSection> = {
     title: "AI / ML",
     content: [
       {
+        projectTitle: "Visight",
+        desc: "End-to-end computer vision system for F1 brand exposure analysis",
+        img: "/img/visight.png",
+        tech: ["Python", "Modal", "OpenCV", "AWS", "RL LLM", "VLM", "Computer Vision", "YOLOv8"],
+        fullDesc: "",
+        link: "https://www.linkedin.com/posts/rudraksh-monga_f1-sponsors-spend-2-billion-a-year-on-logo-activity-7402760209376673792-x1RY?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEJ1xlgBZIZG2xaGxaGWJgjhEwC403RhjaE"
+      },
+      {
+        projectTitle: "Predicting Focal Colours from Natural Images",
+        desc: "Predicting focal colours from natural images using KMeans clustering in the CIELAB colour space",
+        img: "/img/wcs_color_prototypes.png",
+        tech: ["Python", "scikit-learn", "Pandas", "NumPy", "Matplotlib", "PyTorch"],
+        fullDesc: "",
+        link: "https://github.com/mikhskaz/focal-colour-predictor"
+      },
+      {
         projectTitle: "GuessWho AI",
         desc: "Guessing Who opponent powered by machine learning",
         img: "/img/guesswho.png",
@@ -104,8 +120,8 @@ const TAB_DATA: Record<string, TabSection> = {
         img: "/img/arousalvalence.png",
         tech: ["Python", "Pandas", "NumPy", "Scikit-learn"],
         fullDesc: "Research into how arousal and valence affect memory and recall of chunks; simulating in a custom implementation of the Clarion cognitive architecture.",
-        link: "",
-        inProgress: true
+        link: "https://github.com/mikhskaz/hotcognition",
+        inProgress: false
       },
       
     ]
@@ -181,7 +197,7 @@ const TAB_DATA: Record<string, TabSection> = {
  */
 const TabButton = ({ tabKey, title }: { tabKey: string; title: string }) => (
   <button
-    className="tab-btn pb-2 hover:text-secondary transition cursor-none text-white text-sm sm:text-lg md:text-1xl lg:text-2xl"
+    className="tab-btn pb-2 hover:text-secondary transition cursor-pointer text-white text-sm sm:text-lg md:text-1xl lg:text-2xl"
     data-tab={tabKey}
     role="tab"
     aria-selected="false"

@@ -212,13 +212,14 @@ export const BentoCard = React.memo(({
 
 const Features = () => (
   <section id="skills" className="bg-gradient-to-t from-primary to-secondary">
-    <div className="container mx-auto md:px-10 p-3">
+    <div className="container mx-auto md:px-10">
       <p className="hero-heading">
         Skills.
       </p>
       <p className="hero-text">
         What can I do?
       </p>
+      <p className="text-white pb-5 text-xs italic">(Psst... If you dont know an icon you can hover over it )</p>
 
     <BentoTilt className="border-hsla bento_tilt_1 relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
       <BentoCard

@@ -109,7 +109,7 @@ const About = () => {
             <div className="relative flex flex-col items-center">
                 <h1 className="hero-heading relative">About Me</h1>
                 <div className="flex-row text-center">
-                    <p className="hero-text max-w-6xl mb-16 mx-16">I am a fourth-year student at the University of Toronto specializing in Computer Science (Focus in AI) with a Major in Cognitive Science and Minor in Statistics.</p>
+                    <p className="hero-text max-w-7xl mb-16 mx-16">I am a fourth-year student at the University of Toronto pursuing a Specialist in Computer Science (Focus in AI) and a Major in Cognitive Science.</p>
                 </div>
             </div>
             <div className="h-dvh w-screen" id="clip">
