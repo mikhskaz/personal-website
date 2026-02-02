@@ -79,13 +79,16 @@ const About = () => {
   useGSAP(() => {
     // Detect iOS for pinType fix
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    // Shorter scroll distance on mobile devices
+    const isMobile = window.innerWidth < 768;
+    const scrollDistance = isMobile ? 400 : 800;
 
     const clipAnimation = gsap.timeline({
       scrollTrigger: {
         trigger: "#clip",
         start: "center center",
-        end: "+=800 center",
-        scrub: 3,
+        end: `+=${scrollDistance} center`,
+        scrub: isMobile ? 1 : 3,
         pin: true,
         pinSpacing: true,
         pinType: isIOS ? "transform" : "fixed",
@@ -94,7 +97,7 @@ const About = () => {
 
     clipAnimation.to(".mask-clip-path", {
       width: "100vw",
-      height: "100vh",
+      height: "100svh",
       borderRadius: 0,
     });
 

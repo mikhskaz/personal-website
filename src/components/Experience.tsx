@@ -58,24 +58,41 @@ const ExperienceStyles = (): React.ReactElement => (
         display: flex;
         max-width: 1200px;
         margin: 0px auto;
-        gap: 30px;
-        padding-top: 30svh;
-        padding-left: 20px;
-        padding-right: 20px;
+        gap: 20px;
+        padding-top: 10svh;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .timeline-container {
-        flex: 0 0 60px;
+        flex: 0 0 50px;
         position: relative;
-        min-width: 60px;
+        min-width: 50px;
     }
     .timeline-wrapper {
         position: sticky;
-        top: 50svh;
+        top: 30svh;
         transform: translateY(-50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 60px;
+        width: 50px;
+    }
+
+    @media (min-width: 768px) {
+        .experience-section-container {
+            gap: 30px;
+            padding-top: 30svh;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .timeline-container {
+            flex: 0 0 60px;
+            min-width: 60px;
+        }
+        .timeline-wrapper {
+            top: 50svh;
+            width: 60px;
+        }
     }
     .timeline-wrapper::before {
         content: '';
@@ -97,19 +114,30 @@ const ExperienceStyles = (): React.ReactElement => (
     .timeline-node {
         display: flex;
         align-items: center;
-        margin-bottom: 80px;
+        margin-bottom: 50px;
     }
     .timeline-node:last-child {
         margin-bottom: 0;
     }
     .timeline-node .timeline-circle {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         background-color: #e0e0e0;
-        border: 4px solid #e0e0e0;
+        border: 3px solid #e0e0e0;
         border-radius: 50%;
         transition: background-color 0.2s ease, border-color 0.2s ease;
         position: relative;
+    }
+
+    @media (min-width: 768px) {
+        .timeline-node {
+            margin-bottom: 80px;
+        }
+        .timeline-node .timeline-circle {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e0e0e0;
+        }
     }
 
     .timeline-node.active .timeline-circle {
@@ -120,8 +148,14 @@ const ExperienceStyles = (): React.ReactElement => (
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 10svh;
+        gap: 5svh;
         min-width: 0;
+    }
+
+    @media (min-width: 768px) {
+        .experiences-container {
+            gap: 10svh;
+        }
     }
     .experience-card {
         background-color: #ffffff;
