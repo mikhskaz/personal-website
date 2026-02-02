@@ -24,30 +24,30 @@ const Hero = () => {
       }, []);
 
     return (
-        <div className="relative h-dvh w-full">
-            <div className="relative z-20 h-dvh rounded-lg">
-                <section id="home" className="hero-section inset-0 z-10 flex justify-center min-h-dvh text-white">
+        <div className="relative h-svh w-full">
+            <div className="relative z-20 h-svh rounded-lg">
+                <section id="home" className="hero-section inset-0 z-10 flex flex-col justify-between h-svh text-white">
                 <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none">
                     <div className="hero-bg absolute w-full h-full bg-gradient-to-t from-primary to-secondary" />
                     </div>
-                    <div className="absolute left-0 top-0 z-40 size-full">
+                    <div className="z-40">
                         <div className="mt-30 ml-10">
                             <h1 className="hero-heading">Mikhail</h1>
-                            {/* <Button 
+                            {/* <Button
                                 id="about-button"
                                 title="About Me"
                                 rightIcon={<TiLocationArrow className="inline-block ml-2" />}
                                 containerClass="bg-white text-black hover:bg-primary transition-colors duration-300 hover:text-white"
                             />
 
-                            <Button 
+                            <Button
                                 id="skills-button"
                                 title="Skills"
                                 rightIcon={<TiLocationArrow className="inline-block ml-2" />}
                                 containerClass="bg-white text-black hover:bg-primary transition-colors duration-300 hover:text-white"
                             />
 
-                            <Button 
+                            <Button
                                 id="projects-button"
                                 title="View Projects"
                                 rightIcon={<TiLocationArrow className="inline-block ml-2" />}
@@ -57,20 +57,24 @@ const Hero = () => {
                             {/* <p className="hero-text ml-1"></p> */}
                         </div>
                     </div>
-                    <h1 className="quote-text absolute bottom-12 right-5 z-40 font-display italic text-white leading-relaxed text-right">
-                        "Computer science is no more about computers than astronomy is about telescopes, biology is about microscopes or chemistry is about beakers and test tubes. Science is not about tools. It is about how we use them, and what we find out when we do."
-                    </h1>
-                    <h1 className="quote-author absolute bottom-5 right-5 z-40 max-w-md font-display font-bold text-white">
-                        - Edsger W. Dijkstra
-                    </h1>
+                    <div className="z-40 text-right pr-5 pb-5">
+                        <h1 className="quote-text font-display italic text-white leading-relaxed mb-2">
+                            "Computer science is no more about computers than astronomy is about telescopes, biology is about microscopes or chemistry is about beakers and test tubes. Science is not about tools. It is about how we use them, and what we find out when we do."
+                        </h1>
+                        <h1 className="quote-author max-w-md font-display font-bold text-white ml-auto">
+                            - Edsger W. Dijkstra
+                        </h1>
+                    </div>
                 </section>
             </div>
-            <h1 className="quote-text absolute bottom-12 right-5 font-display italic text-secondary leading-relaxed text-right">
-                "Computer science is no more about computers than astronomy is about telescopes, biology is about microscopes or chemistry is about beakers and test tubes. Science is not about tools. It is about how we use them, and what we find out when we do."
-            </h1>
-            <h1 className="quote-author absolute bottom-5 right-5 max-w-md font-display font-bold text-secondary">
-                - Edsger W. Dijkstra
-            </h1>
+            <div className="absolute inset-0 flex flex-col justify-end text-right pr-5 pb-5">
+                <h1 className="quote-text font-display italic text-secondary leading-relaxed mb-2">
+                    "Computer science is no more about computers than astronomy is about telescopes, biology is about microscopes or chemistry is about beakers and test tubes. Science is not about tools. It is about how we use them, and what we find out when we do."
+                </h1>
+                <h1 className="quote-author max-w-md font-display font-bold text-secondary ml-auto">
+                    - Edsger W. Dijkstra
+                </h1>
+            </div>
         </div>
     );
 
