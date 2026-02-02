@@ -130,6 +130,14 @@ const TAB_DATA: Record<string, TabSection> = {
     title: "Software Engineering",
     content: [
       {
+        projectTitle: "Videocutter",
+        desc: "Label videos with ease",
+        img: "/img/videocutter.png",
+        tech: ["Python", "ffmpeg", "OpenCV"],
+        fullDesc: "A simple Python program to ease the labelling of video data and creating finetuned clips for fail cases.",
+        link: "https://github.com/mikhskaz/videocutter"
+      },
+      {
         projectTitle: "Wall Street Warriors",
         desc: "Clean Architecture Stock Trading Simulator",
         img: "/img/UseCaseUML.png",

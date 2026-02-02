@@ -64,7 +64,7 @@ const ExperienceStyles = (): React.ReactElement => (
         max-width: 1200px;
         margin: 0px auto;
         gap: 50px;
-        padding-top: 30vh;
+        padding-top: 30svh;
     }
     .timeline-container {
         flex: 1;
@@ -72,7 +72,7 @@ const ExperienceStyles = (): React.ReactElement => (
     }
     .timeline-wrapper {
         position: sticky;
-        top: 50vh;
+        top: 50svh;
         transform: translateY(-50%);
         display: flex;
         flex-direction: column;
@@ -121,7 +121,7 @@ const ExperienceStyles = (): React.ReactElement => (
         flex: 3;
         display: flex;
         flex-direction: column;
-        gap: 10vh;
+        gap: 10svh;
         padding-right: 20px;
     }
     .experience-card {
@@ -217,13 +217,17 @@ const Experience = (): React.ReactElement => {
     
     // Handles all scroll-based animations
     useEffect(() => {
+    // Use visualViewport for stable height on iOS, fallback to innerHeight
+    const getViewportHeight = () => window.visualViewport?.height ?? window.innerHeight;
+
     const handleScroll = () => {
         const scrollContainer = scrollContainerRef.current;
         if (!scrollContainer) return;
 
+        const viewportHeight = getViewportHeight();
         const rect = scrollContainer.getBoundingClientRect();
-        const activationPoint = window.innerHeight * 0.6;
-        const scrollableDistance = rect.height - window.innerHeight * 0.4;
+        const activationPoint = viewportHeight * 0.6;
+        const scrollableDistance = rect.height - viewportHeight * 0.4;
         const distanceScrolled = activationPoint - rect.top - 100;
         const progress = Math.max(0, Math.min(1, distanceScrolled / scrollableDistance));
 
@@ -246,10 +250,15 @@ const Experience = (): React.ReactElement => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    // Also listen to visualViewport resize for iOS address bar changes
+    window.visualViewport?.addEventListener('resize', handleScroll);
     handleScroll(); // Run on load
 
-    return () => window.removeEventListener('scroll', handleScroll);
-}, [experiences.length]); // Empty dependency array ensures this runs once, as refs don't trigger re-renders
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.visualViewport?.removeEventListener('resize', handleScroll);
+    };
+}, [experiences.length]);
 
     return (
     <>
