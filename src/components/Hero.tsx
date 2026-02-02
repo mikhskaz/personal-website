@@ -24,9 +24,9 @@ const Hero = () => {
       }, []);
 
     return (
-        <div className="relative h-screen w-full">
+        <div className="relative h-dvh w-full">
             <div className="relative z-20 h-dvh rounded-lg">
-                <section id="home" className="hero-section inset-0 z-10 flex justify-center min-h-screen text-white">
+                <section id="home" className="hero-section inset-0 z-10 flex justify-center min-h-dvh text-white">
                 <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none">
                     <div className="hero-bg absolute w-full h-full bg-gradient-to-t from-primary to-secondary" />
                     </div>
