@@ -64,18 +64,7 @@ const ExperienceStyles = (): React.ReactElement => (
         padding-right: 10px;
     }
     .timeline-container {
-        flex: 0 0 40px;
-        position: relative;
-        min-width: 40px;
-    }
-    .timeline-wrapper {
-        position: sticky;
-        top: 35svh;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 40px;
+        display: none;
     }
 
     @media (min-width: 768px) {
@@ -86,11 +75,18 @@ const ExperienceStyles = (): React.ReactElement => (
             padding-right: 20px;
         }
         .timeline-container {
+            display: block;
             flex: 0 0 60px;
+            position: relative;
             min-width: 60px;
         }
         .timeline-wrapper {
+            position: sticky;
             top: 50svh;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 60px;
         }
     }
@@ -162,9 +158,6 @@ const ExperienceStyles = (): React.ReactElement => (
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         padding: 15px;
-        opacity: 0.3;
-        transform: scale(0.95);
-        transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     @media (min-width: 768px) {
@@ -172,10 +165,6 @@ const ExperienceStyles = (): React.ReactElement => (
             padding: 30px;
             min-height: 300px;
         }
-    }
-    .experience-card.active {
-        opacity: 1;
-        transform: scale(1);
     }
     .experience-card img {
         max-width: 120px;
