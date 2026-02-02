@@ -22,7 +22,15 @@
 html, body {
   background-color: #000000;
   overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
   /* letter-spacing: 0.05rem; */
+}
+
+/* iOS safe area support */
+@supports (padding: max(0px)) {
+  .quote-text, .quote-author {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
 }
 
 :root {
@@ -120,7 +128,7 @@ html, body {
 
   @media screen and (min-width: 320px) {
     .about-me-img {
-      width: screen;
+      width: 100vw;
     }
 
     .hero-heading {

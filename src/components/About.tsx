@@ -77,6 +77,9 @@ const About = () => {
   const [tiltEnabled, setTiltEnabled] = useState(true);
 
   useGSAP(() => {
+    // Detect iOS for pinType fix
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
     const clipAnimation = gsap.timeline({
       scrollTrigger: {
         trigger: "#clip",
@@ -85,6 +88,7 @@ const About = () => {
         scrub: 3,
         pin: true,
         pinSpacing: true,
+        pinType: isIOS ? "transform" : "fixed",
       },
     });
 
@@ -105,8 +109,8 @@ const About = () => {
     
   
     return (
-        <section id="about" className="min-h-screen w-screen">
-            <div className="relative flex flex-col items-center">
+        <section id="about" className="min-h-screen w-screen overflow-hidden">
+            <div className="relative z-30 flex flex-col items-center">
                 <h1 className="hero-heading relative">About Me</h1>
                 <div className="flex-row text-center">
                     <p className="hero-text max-w-7xl mb-16 mx-16">I am a fourth-year student at the University of Toronto pursuing a Specialist in Computer Science (Focus in AI) and a Major in Cognitive Science.</p>
