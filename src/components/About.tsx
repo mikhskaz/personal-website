@@ -112,7 +112,7 @@ const About = () => {
                     <p className="hero-text max-w-7xl mb-16 mx-16">I am a fourth-year student at the University of Toronto pursuing a Specialist in Computer Science (Focus in AI) and a Major in Cognitive Science.</p>
                 </div>
             </div>
-            <div className="h-dvh w-screen" id="clip">
+            <div className="relative h-dvh w-screen" id="clip">
                 <div className="mask-clip-path about-me-img">
                   <BentoTilt className="bento-tilt_1 relative mb-7 overflow-visible w-full h-full" disabled={!tiltEnabled}>
                     <BentoCard

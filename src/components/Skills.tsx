@@ -212,7 +212,7 @@ export const BentoCard = React.memo(({
 
 const Features = () => (
   <section id="skills" className="bg-gradient-to-t from-primary to-secondary">
-    <div className="container mx-auto md:px-10">
+    <div className="container mx-auto px-3 md:px-10">
       <p className="hero-heading">
         Skills.
       </p>

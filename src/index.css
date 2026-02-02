@@ -19,8 +19,9 @@
   --font-display: 'Bebas Neue';
 }
 
-body {
+html, body {
   background-color: #000000;
+  overscroll-behavior: none;
   /* letter-spacing: 0.05rem; */
 }
 
