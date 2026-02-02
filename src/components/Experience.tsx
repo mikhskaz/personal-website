@@ -58,24 +58,23 @@ const ExperienceStyles = (): React.ReactElement => (
         display: flex;
         max-width: 1200px;
         margin: 0px auto;
-        gap: 20px;
-        padding-top: 10svh;
+        gap: 15px;
+        padding-top: 20px;
         padding-left: 10px;
         padding-right: 10px;
     }
     .timeline-container {
-        flex: 0 0 50px;
+        flex: 0 0 40px;
         position: relative;
-        min-width: 50px;
+        min-width: 40px;
     }
     .timeline-wrapper {
         position: sticky;
-        top: 30svh;
-        transform: translateY(-50%);
+        top: 120px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 50px;
+        width: 40px;
     }
 
     @media (min-width: 768px) {
@@ -91,6 +90,7 @@ const ExperienceStyles = (): React.ReactElement => (
         }
         .timeline-wrapper {
             top: 50svh;
+            transform: translateY(-50%);
             width: 60px;
         }
     }
@@ -114,14 +114,14 @@ const ExperienceStyles = (): React.ReactElement => (
     .timeline-node {
         display: flex;
         align-items: center;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
     .timeline-node:last-child {
         margin-bottom: 0;
     }
     .timeline-node .timeline-circle {
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         background-color: #e0e0e0;
         border: 3px solid #e0e0e0;
         border-radius: 50%;
@@ -148,7 +148,7 @@ const ExperienceStyles = (): React.ReactElement => (
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 5svh;
+        gap: 30px;
         min-width: 0;
     }
 
@@ -161,27 +161,41 @@ const ExperienceStyles = (): React.ReactElement => (
         background-color: #ffffff;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        padding: 30px;
+        padding: 15px;
         opacity: 0.3;
         transform: scale(0.95);
         transition: opacity 0.4s ease, transform 0.4s ease;
-        min-height: 300px;
-        
-        justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+        .experience-card {
+            padding: 30px;
+            min-height: 300px;
+        }
     }
     .experience-card.active {
         opacity: 1;
         transform: scale(1);
     }
     .experience-card img {
-        max-width: 200px;
-        margin-bottom: 20px;
+        max-width: 120px;
+        margin-bottom: 10px;
         border-radius: 0px;
     }
     .experience-card h3 {
         margin: 0 0 5px 0;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: var(--color-secondary);
+    }
+
+    @media (min-width: 768px) {
+        .experience-card img {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .experience-card h3 {
+            font-size: 1.5rem;
+        }
     }
     .experience-card .duration {
         font-style: italic;
