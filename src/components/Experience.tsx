@@ -59,7 +59,7 @@ const ExperienceStyles = (): React.ReactElement => (
         max-width: 1200px;
         margin: 0px auto;
         gap: 15px;
-        padding-top: 20px;
+        padding-top: 5svh;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -70,7 +70,8 @@ const ExperienceStyles = (): React.ReactElement => (
     }
     .timeline-wrapper {
         position: sticky;
-        top: 120px;
+        top: 35svh;
+        transform: translateY(-50%);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -90,7 +91,6 @@ const ExperienceStyles = (): React.ReactElement => (
         }
         .timeline-wrapper {
             top: 50svh;
-            transform: translateY(-50%);
             width: 60px;
         }
     }
