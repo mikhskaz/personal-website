@@ -54,21 +54,19 @@ const experiences: ExperienceType[] = [
 
 const ExperienceStyles = (): React.ReactElement => (
   <style>{`
-    /* Adding a smooth transition to the progress bar and circles */
-    .timeline-progress {
-        transition: height 0.2s linear;
-    }
-
     .experience-section-container {
         display: flex;
         max-width: 1200px;
         margin: 0px auto;
-        gap: 50px;
+        gap: 30px;
         padding-top: 30svh;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     .timeline-container {
-        flex: 1;
+        flex: 0 0 60px;
         position: relative;
+        min-width: 60px;
     }
     .timeline-wrapper {
         position: sticky;
@@ -77,6 +75,7 @@ const ExperienceStyles = (): React.ReactElement => (
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 60px;
     }
     .timeline-wrapper::before {
         content: '';
@@ -93,12 +92,12 @@ const ExperienceStyles = (): React.ReactElement => (
         background-color: var(--color-secondary);
         top: 0;
         z-index: -1;
+        /* No transition - directly tied to scroll */
     }
     .timeline-node {
         display: flex;
         align-items: center;
         margin-bottom: 80px;
-        transition: transform 0.3s ease;
     }
     .timeline-node:last-child {
         margin-bottom: 0;
@@ -109,7 +108,7 @@ const ExperienceStyles = (): React.ReactElement => (
         background-color: #e0e0e0;
         border: 4px solid #e0e0e0;
         border-radius: 50%;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
         position: relative;
     }
 
@@ -118,11 +117,11 @@ const ExperienceStyles = (): React.ReactElement => (
         border-color: var(--color-secondary);
     }
     .experiences-container {
-        flex: 3;
+        flex: 1;
         display: flex;
         flex-direction: column;
         gap: 10svh;
-        padding-right: 20px;
+        min-width: 0;
     }
     .experience-card {
         background-color: #ffffff;
@@ -158,9 +157,6 @@ const ExperienceStyles = (): React.ReactElement => (
     .experience-card p {
         font-size: 1rem;
         line-height: 1.6;
-    }
-    .experiences-container {
-        transform: translateY(-200px);
     }
     .skills-container {
         display: flex;
@@ -226,9 +222,9 @@ const Experience = (): React.ReactElement => {
 
         const viewportHeight = getViewportHeight();
         const rect = scrollContainer.getBoundingClientRect();
-        const activationPoint = viewportHeight * 0.6;
-        const scrollableDistance = rect.height - viewportHeight * 0.4;
-        const distanceScrolled = activationPoint - rect.top - 100;
+        const activationPoint = viewportHeight * 0.5;
+        const scrollableDistance = rect.height - viewportHeight * 0.5;
+        const distanceScrolled = activationPoint - rect.top;
         const progress = Math.max(0, Math.min(1, distanceScrolled / scrollableDistance));
 
         const timelineNodes = timelineNodeRefs.current;
@@ -240,13 +236,14 @@ const Experience = (): React.ReactElement => {
         const startY = firstNode.offsetTop + firstNode.offsetHeight / 2;
         const endY = lastNode.offsetTop + lastNode.offsetHeight / 2;
         const totalTimelineHeight = endY - startY;
+
+        // Smooth progress bar - directly tied to scroll position
         setProgressHeight(startY + totalTimelineHeight * progress);
 
-        const numSegments = experiences.length - 1;
-        if (numSegments > 0) {
-            const currentLastNode = Math.round(progress * numSegments - 0.4);
-            setLastActiveNode(currentLastNode);
-        }
+        // Activate nodes based on progress through experiences
+        const numExperiences = experiences.length;
+        const currentActiveNode = Math.floor(progress * numExperiences);
+        setLastActiveNode(Math.min(currentActiveNode, numExperiences - 1));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
