@@ -12,8 +12,9 @@ const experiences: ExperienceType[] = [
     {
         title: "AI Software Developer",
         duration: "Jan 2026 - May 2026",
-        description: "Incoming.",
-        image: "/img/CGI.png"
+        description: "Using AI to improve CX.",
+        image: "/img/CGI.png",
+        skills: ["Python", "XGBoost", "Data Analysis", "LightGBM", "scikit-learn", "React", "TypeScript"]
     },
     {
         title: "Research Trainee",
