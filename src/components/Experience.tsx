@@ -10,15 +10,22 @@ type ExperienceType = {
 
 const experiences: ExperienceType[] = [
     {
+        title: "AI/ML Engineering Intern",
+        duration: "Jun 2026 - Present",
+        description: "Using AI in Industry.",
+        image: "/img/maneva.png",
+        skills: ["Python"]
+    },
+    {
         title: "AI Software Developer",
         duration: "Jan 2026 - May 2026",
-        description: "Using AI to improve CX.",
+        description: "Implemented a Model Competition Cascade Classifier with Embeddings, TF-IDF, Neural Networks, XGBoost, and LightGBM to classify customer support tickets with high precision and speed.",
         image: "/img/CGI.png",
-        skills: ["Python", "XGBoost", "Data Analysis", "LightGBM", "scikit-learn", "React", "TypeScript"]
+        skills: ["Python", "XGBoost", "Data Analysis", "LightGBM", "scikit-learn", "React", "TypeScript", "sci-kit learn"]
     },
     {
         title: "Research Trainee",
-        duration: "Sep 2025 - Present",
+        duration: "Sep 2025 - May 2026",
         description: "Developing a computer vision model to detect and classify slip events at WinterLab KITE using pose estimation and neural networks.",
         image: "/img/KITE.png",
         skills: ["Python", "Computer Vision", "Pose Estimation", "Deep Learning", "OpenCV"]
