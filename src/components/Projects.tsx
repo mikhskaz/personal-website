@@ -83,7 +83,7 @@ const TAB_DATA: Record<string, TabSection> = {
       {
         projectTitle: "Visight",
         desc: "End-to-end computer vision system for F1 brand exposure analysis",
-        img: "/img/visight.png",
+        img: "/img/visight.webp",
         tech: ["Python", "Modal", "OpenCV", "AWS", "RL LLM", "VLM", "Computer Vision", "YOLOv8"],
         fullDesc: "",
         link: "https://www.linkedin.com/posts/rudraksh-monga_f1-sponsors-spend-2-billion-a-year-on-logo-activity-7402760209376673792-x1RY?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEJ1xlgBZIZG2xaGxaGWJgjhEwC403RhjaE"
@@ -156,7 +156,7 @@ const TAB_DATA: Record<string, TabSection> = {
       {
         projectTitle: "Fraternity Webpage",
         desc: "Full-stack web application for a fraternity",
-        img: "/img/dutoronto.png",
+        img: "/img/dutoronto.webp",
         tech: ["TypeScript", "React", "Tailwind CSS"],
         fullDesc: "Featuring mail list and a responsive design.",
         link: "https://github.com/Thehashhobo/DU-Toronto-Webpage",
@@ -245,6 +245,8 @@ const TabContent = ({ content, tabKey }: { content: TabItem[]; tabKey: string })
           <img
             src={item.img}
             alt={item.desc}
+            loading="lazy"
+            decoding="async"
             className="rounded-xl object-cover h-48 w-full"
           />
         )}
@@ -388,7 +390,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div id="projects" className="flex flex-col items-center pb-12 bg-primary w-full height-screen">
+    <div id="projects" className="flex flex-col items-center pb-12 bg-primary w-full">
       <div className="container px-3 md:px-10">
         <h2 className="hero-heading">Projects.</h2>
       <p className="hero-text mb-8">

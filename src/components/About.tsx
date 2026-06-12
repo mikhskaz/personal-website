@@ -67,6 +67,7 @@ export const BentoCard = ({ src }: BentoCardProps) => {
         loop
         muted
         autoPlay
+        playsInline
         className="absolute left-0 top-0 size-full object-cover object-center rounded-lg"
       />
     </div>
@@ -123,7 +124,7 @@ const About = () => {
                 <div className="mask-clip-path about-me-img">
                   <BentoTilt className="bento-tilt_1 relative mb-7 overflow-visible w-full h-full" disabled={!tiltEnabled}>
                     <BentoCard
-                        src="vid/solar.mov" 
+                        src="vid/solar.mp4"
                         title=""
                         description=""
                     />

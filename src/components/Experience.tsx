@@ -224,38 +224,13 @@ const ExperienceStyles = (): React.ReactElement => (
 
 
 const Experience = (): React.ReactElement => {
-    const [activeIndex, setActiveIndex] = useState<number>(-1);
-    const [progressHeight, setProgressHeight] = useState<number>(0);
     const [lastActiveNode, setLastActiveNode] = useState(0);
 
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
     const timelineNodeRefs = useRef<(HTMLDivElement | null)[]>([]);
     const experienceCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-    
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const index = parseInt(entry.target.getAttribute('data-index') || '0', 10);
-                        setActiveIndex(index);
-                    }
-                });
-            },
-            { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
-        );
+    const progressBarRef = useRef<HTMLDivElement | null>(null);
 
-        experienceCardRefs.current.forEach((card) => {
-            if (card) observer.observe(card);
-        });
-
-        return () => {
-            experienceCardRefs.current.forEach((card) => {
-                if (card) observer.unobserve(card);
-            });
-        };
-    }, []);
-    
     // Handles all scroll-based animations
     useEffect(() => {
     // Use visualViewport for stable height on iOS, fallback to innerHeight
@@ -282,8 +257,11 @@ const Experience = (): React.ReactElement => {
         const endY = lastNode.offsetTop + lastNode.offsetHeight / 2;
         const totalTimelineHeight = endY - startY;
 
-        // Smooth progress bar - directly tied to scroll position
-        setProgressHeight(startY + totalTimelineHeight * progress);
+        // Smooth progress bar - write directly to the DOM so scrolling
+        // doesn't re-render the whole card list every frame
+        if (progressBarRef.current) {
+            progressBarRef.current.style.height = `${startY + totalTimelineHeight * progress}px`;
+        }
 
         // Activate nodes based on progress through experiences
         const numExperiences = experiences.length;
@@ -300,7 +278,7 @@ const Experience = (): React.ReactElement => {
         window.removeEventListener('scroll', handleScroll);
         window.visualViewport?.removeEventListener('resize', handleScroll);
     };
-}, [experiences.length]);
+}, []);
 
     return (
     <>
@@ -317,7 +295,7 @@ const Experience = (): React.ReactElement => {
             <section className="experience-section-container">
                 <div className="timeline-container">
                     <div className="timeline-wrapper">
-                        <div className="timeline-progress" style={{ height: `${progressHeight}px` }}></div>
+                        <div className="timeline-progress" ref={progressBarRef}></div>
                         {experiences.map((_, index) => (
                             <div
                                 key={index}
@@ -337,7 +315,7 @@ const Experience = (): React.ReactElement => {
                             className={`experience-card ${index <= lastActiveNode ? 'active' : ''}`}
                             data-index={index}
                         >
-                            <img src={exp.image} alt={`${exp.title} logo`} />
+                            <img src={exp.image} alt={`${exp.title} logo`} loading="lazy" decoding="async" />
                             <h3>{exp.title}</h3>
                             <div className="duration">{exp.duration}</div>
                             <p>{exp.description}</p>
