@@ -1,0 +1,72 @@
+{
+  "period": "2014\u20132024",
+  "pic_total": 324114,
+  "mha_total": 117310,
+  "crisis_total": 441424,
+  "per_day": 81.0,
+  "type_split": {
+    "Person in Crisis": 185562,
+    "Suicide-related": 102281,
+    "Overdose": 36271
+  },
+  "correlations": {
+    "Low-income %": 0.453,
+    "Senior %": -0.382,
+    "Tree canopy %": -0.33,
+    "Heat extremity": 0.181,
+    "People of colour %": -0.095,
+    "Unemployment": 0.034,
+    "Tree Equity Score": 0.037
+  },
+  "top_crisis": [
+    {
+      "name": "Downtown Yonge East",
+      "pic_per1k": 678.9,
+      "tes": 90.0,
+      "canopy": 9.2
+    },
+    {
+      "name": "Moss Park",
+      "pic_per1k": 610.8,
+      "tes": 94.0,
+      "canopy": 18.1
+    },
+    {
+      "name": "Yonge-Bay Corridor",
+      "pic_per1k": 560.1,
+      "tes": 86.0,
+      "canopy": 5.0
+    },
+    {
+      "name": "Kensington-Chinatown",
+      "pic_per1k": 460.8,
+      "tes": 90.0,
+      "canopy": 14.4
+    },
+    {
+      "name": "University",
+      "pic_per1k": 458.5,
+      "tes": 100.0,
+      "canopy": 20.6
+    },
+    {
+      "name": "West Queen West",
+      "pic_per1k": 371.6,
+      "tes": 76.0,
+      "canopy": 12.6
+    },
+    {
+      "name": "South Parkdale",
+      "pic_per1k": 333.9,
+      "tes": 74.0,
+      "canopy": 23.7
+    },
+    {
+      "name": "Church-Wellesley",
+      "pic_per1k": 302.7,
+      "tes": 92.0,
+      "canopy": 12.2
+    }
+  ],
+  "n_neighbourhoods": 158
+}
