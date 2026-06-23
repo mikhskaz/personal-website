@@ -75,6 +75,14 @@ const TAB_DATA: Record<string, TabSection> = {
     title: "AI / ML",
     content: [
       {
+        "projectTitle": "Crisis and Canopy",
+        "desc": "Interactive scrollytelling atlas of heat, tree canopy, and mental-health crisis calls across Toronto",
+        "img": "/img/crisisandcanopy.png",
+        "tech": ["React", "D3.js", "Python", "Pandas", "GeoJSON", "Google Earth Engine", "Vite"],
+        "fullDesc": "An interactive scrollytelling atlas mapping all 158 Toronto neighbourhoods (2014–2024) to explore how mental-health crisis calls line up with summer heat, tree canopy, and poverty. A dependency-light D3-projected SVG choropleth (no map tiles or API keys) drives a guided narrative, a free-form map explorer, per-neighbourhood drill-downs, a correlation studio, and a seasonal pulse view. A Python pipeline joins Toronto Police persons-in-crisis and Mental Health Act call data to neighbourhood boundaries, Tree Equity Scores, Open-Meteo air temperature, and optional 30 m Landsat land-surface temperature from Google Earth Engine, pre-baking everything into static JSON the client fetches at runtime.",
+        "link": "/crisisandcanopy/"
+      },
+      {
         "projectTitle": "Deal Memo Agent",
         "desc": "AI-powered pipeline that converts raw CIMs into structured investment memos",
         "img": "/img/deal-memo-agent.png",
