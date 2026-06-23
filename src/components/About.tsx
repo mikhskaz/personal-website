@@ -8,6 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 import React, { useRef, useState } from "react";
 import type { ReactNode } from "react";
+import SectionHeading from "./SectionHeading";
+import Marquee from "./Marquee";
+import useReveal from "../hooks/useReveal";
 
 type BentoTiltProps = {
   children: ReactNode;
@@ -67,6 +70,9 @@ export const BentoCard = ({ src }: BentoCardProps) => {
         loop
         muted
         autoPlay
+        playsInline
+        aria-hidden="true"
+        tabIndex={-1}
         className="absolute left-0 top-0 size-full object-cover object-center rounded-lg"
       />
     </div>
@@ -75,6 +81,7 @@ export const BentoCard = ({ src }: BentoCardProps) => {
 
 const About = () => {
   const [tiltEnabled, setTiltEnabled] = useState(true);
+  const revealRef = useReveal<HTMLElement>();
 
   useGSAP(() => {
     // Detect iOS for pinType fix
@@ -112,18 +119,29 @@ const About = () => {
     
   
     return (
-        <section id="about" className="min-h-screen w-screen overflow-hidden">
-            <div className="relative z-30 flex flex-col items-center">
-                <h1 className="hero-heading relative">About Me</h1>
-                <div className="flex-row text-center">
-                    <p className="hero-text max-w-7xl mb-16 mx-16">I am a fourth-year student at the University of Toronto pursuing a Specialist in Computer Science (Focus in AI) and a Major in Cognitive Science.</p>
-                </div>
+        <section id="about" ref={revealRef} className="min-h-screen w-screen overflow-hidden">
+            <div className="relative z-30 border-y border-white/15 py-5 mb-14 bg-black/20 backdrop-blur-sm">
+                <Marquee
+                    items={["Software Engineer", "AI/ML Researcher", "Designer", "Creator", "Problem Solver"]}
+                    duration={26}
+                    outlined
+                />
+            </div>
+            <div className="relative z-30 mx-6 md:mx-10 mb-16">
+                <SectionHeading index="01" title="About Me" sub="Who is behind the work" invert />
+                <p className="reveal mt-10 max-w-4xl font-display text-[clamp(1.8rem,4vw,3.2rem)] leading-[1.15] text-white" style={{ ['--reveal-delay' as string]: '0.15s' }}>
+                    Fourth-year at the <span className="text-bone">University of Toronto</span> — Specialist in{' '}
+                    <span className="italic text-bone">Computer Science</span> with a focus in{' '}
+                    <span className="text-outline">AI</span>, and a Major in{' '}
+                    <span className="italic text-bone">Cognitive Science</span>. I build systems that learn, and
+                    interfaces worth remembering.
+                </p>
             </div>
             <div className="relative h-dvh w-screen" id="clip">
                 <div className="mask-clip-path about-me-img">
                   <BentoTilt className="bento-tilt_1 relative mb-7 overflow-visible w-full h-full" disabled={!tiltEnabled}>
                     <BentoCard
-                        src="vid/solar.mov" 
+                        src="vid/solar.mp4"
                         title=""
                         description=""
                     />

@@ -39,6 +39,8 @@ import {
 // import { motion } from "framer-motion";
 
 import type { ReactNode, MouseEvent } from "react";
+import SectionHeading from "./SectionHeading";
+import useReveal from "../hooks/useReveal";
 
 type BentoTiltProps = {
   children: ReactNode;
@@ -83,7 +85,6 @@ export const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
 };
 
 type BentoCardProps = {
-  src: string;
   title: ReactNode;
   description?: string;
   extrabutton?: boolean;
@@ -92,7 +93,6 @@ type BentoCardProps = {
 };
 
 export const BentoCard = React.memo(({
-  src,
   title,
   description,
   extrabutton,
@@ -145,25 +145,20 @@ export const BentoCard = React.memo(({
         className="pointer-events-none absolute inset-0 z-20 transition-opacity duration-300"
         style={{
           opacity: isHovering ? 1 : 0,
-          background: `radial-gradient(100px circle at var(--mouse-x) var(--mouse-y), #656fe288, #00000026)`,
+          background: `radial-gradient(140px circle at var(--mouse-x) var(--mouse-y), rgba(194, 56, 34, 0.45), #00000026)`,
         }}
       />
 
       {/* Main card content wrapper */}
       <div className="relative size-full">
-        {/* Background Image */}
-        <img
-          src={src}
-          alt="Card background"
-          loading="lazy" // Tip: Lazy load images
-          className="absolute left-0 top-0 size-full rounded-lg object-cover object-center"
-        />
+        {/* Background — pure CSS, no image request */}
+        <div className="bento-bg" aria-hidden="true" />
 
         {/* Foreground Content */}
         <div className="relative z-10 grid size-full grid-cols-3 flex-col justify-between p-5 text-white">
-          {/* Title & Description */}
-          <div className="col-span-3">
-            <h1 className="bento-title">{title}</h1>
+          {/* Title & Description — right padding keeps text clear of the icon strip */}
+          <div className="col-span-3 pr-20 md:pr-24">
+            <h3 className="bento-title">{title}</h3>
             {description && (
               <p className="mt-3 max-w-[30rem] text-md md:text-base">{description}</p>
             )}
@@ -173,7 +168,7 @@ export const BentoCard = React.memo(({
 
           {/* Scrolling Icons on Right Side */}
           {icons && icons.length > 0 && (
-            <div className="absolute right-4 top-0 h-full w-20 overflow-hidden">
+            <div className="absolute right-4 top-0 h-full w-20 overflow-hidden" aria-hidden="true">
                 <div className="animate-vertical-scroll flex flex-col gap-6 text-4xl text-white/40 md:text-5xl">
                     {Array(3)
                         .fill(icons)
@@ -210,20 +205,17 @@ export const BentoCard = React.memo(({
 });
 
 
-const Features = () => (
-  <section id="skills" className="bg-gradient-to-t from-primary to-secondary">
+const Features = () => {
+  const revealRef = useReveal<HTMLElement>();
+
+  return (
+  <section id="skills" ref={revealRef} className="bg-gradient-to-t from-primary to-secondary py-20">
     <div className="container mx-auto px-6">
-      <p className="hero-heading">
-        Skills.
-      </p>
-      <p className="hero-text">
-        What can I do?
-      </p>
-      <p className="text-white pb-5 text-xs italic">(Psst... If you dont know an icon you can hover over it )</p>
+      <SectionHeading index="03" title="Skills" sub="The toolbox" className="mb-4" invert />
+      <p className="meta-label meta-dark pb-5"><span className="tick">/ </span>Hover an icon to name it</p>
 
     <BentoTilt className="border-hsla bento_tilt_1 relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
       <BentoCard
-        src="img/Black.png"
         title="AI/ML"
         description="My bread and butter."
         //   extrabutton
@@ -246,7 +238,6 @@ const Features = () => (
     <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-4 gap-7">
       <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
         <BentoCard
-        src="img/Black.png"
         title="Software Dev"
         description=""
         // extrabutton
@@ -264,7 +255,6 @@ const Features = () => (
 
       <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
         <BentoCard
-        src="img/Black.png"
         title="Web Dev"
         description=""
         // extrabutton
@@ -299,7 +289,6 @@ const Features = () => (
 
       <BentoTilt className="bento-tilt_2 col-span-2 row-span-2 md:col-span-2 md:row-span-2">
         <BentoCard
-        src="img/Black.png"
         title="Game Dev / Simulation"
         description="More of a hobby."
         // extrabutton
@@ -318,6 +307,7 @@ const Features = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default Features;

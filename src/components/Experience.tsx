@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import SectionHeading from './SectionHeading';
+import useReveal from '../hooks/useReveal';
 
 type ExperienceType = {
   title: string;
@@ -78,7 +80,7 @@ const ExperienceStyles = (): React.ReactElement => (
     @media (min-width: 768px) {
         .experience-section-container {
             gap: 30px;
-            padding-top: 30svh;
+            padding-top: 10svh;
             padding-left: 20px;
             padding-right: 20px;
         }
@@ -89,9 +91,10 @@ const ExperienceStyles = (): React.ReactElement => (
             min-width: 60px;
         }
         .timeline-wrapper {
+            /* Plain top offset — a translateY(-50%) here would lift the
+               column above its container and over the section heading */
             position: sticky;
-            top: 50svh;
-            transform: translateY(-50%);
+            top: clamp(90px, 14svh, 170px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -103,7 +106,7 @@ const ExperienceStyles = (): React.ReactElement => (
         position: absolute;
         width: 4px;
         height: 100%;
-        background-color: #e0e0e0;
+        background-color: rgba(255, 255, 255, 0.12);
         top: 0;
         z-index: -2;
     }
@@ -126,27 +129,28 @@ const ExperienceStyles = (): React.ReactElement => (
     .timeline-node .timeline-circle {
         width: 24px;
         height: 24px;
-        background-color: #e0e0e0;
-        border: 3px solid #e0e0e0;
+        background-color: #1a1a1a;
+        border: 3px solid rgba(255, 255, 255, 0.2);
         border-radius: 50%;
-        transition: background-color 0.2s ease, border-color 0.2s ease;
+        transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         position: relative;
     }
 
     @media (min-width: 768px) {
         .timeline-node {
-            margin-bottom: 80px;
+            margin-bottom: 64px;
         }
         .timeline-node .timeline-circle {
             width: 40px;
             height: 40px;
-            border: 4px solid #e0e0e0;
+            border: 4px solid rgba(255, 255, 255, 0.2);
         }
     }
 
     .timeline-node.active .timeline-circle {
-        background-color: #fff;
-        border-color: var(--color-secondary);
+        background-color: var(--color-primary);
+        border-color: #fff;
+        box-shadow: 0 0 18px rgba(194, 56, 34, 0.55);
     }
     .experiences-container {
         flex: 1;
@@ -162,10 +166,17 @@ const ExperienceStyles = (): React.ReactElement => (
         }
     }
     .experience-card {
-        background-color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         padding: 15px;
+        transition: transform 0.6s var(--ease-expo), border-color 0.6s var(--ease-expo), opacity 0.9s var(--ease-expo);
+    }
+    .experience-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(194, 56, 34, 0.6);
     }
 
     @media (min-width: 768px) {
@@ -177,12 +188,16 @@ const ExperienceStyles = (): React.ReactElement => (
     .experience-card img {
         max-width: 120px;
         margin-bottom: 10px;
-        border-radius: 0px;
+        background-color: #fff;
+        padding: 8px;
+        border-radius: 8px;
     }
     .experience-card h3 {
         margin: 0 0 5px 0;
         font-size: 1.2rem;
-        color: var(--color-secondary);
+        font-family: 'Bebas Neue', sans-serif;
+        letter-spacing: 0.03em;
+        color: #fff;
     }
 
     @media (min-width: 768px) {
@@ -191,17 +206,21 @@ const ExperienceStyles = (): React.ReactElement => (
             margin-bottom: 20px;
         }
         .experience-card h3 {
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
     }
     .experience-card .duration {
-        font-style: italic;
-        color: #6c757d;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-primary);
         margin-bottom: 15px;
     }
     .experience-card p {
         font-size: 1rem;
         line-height: 1.6;
+        color: rgba(255, 255, 255, 0.75);
     }
     .skills-container {
         display: flex;
@@ -211,51 +230,33 @@ const ExperienceStyles = (): React.ReactElement => (
         padding-top: 20px; /* Adds space above the skills */
     }
     .skill-tag {
-        background-color: #f0f0f0;
-        color: #333;
+        background-color: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.85);
+        font-family: var(--font-mono);
         padding: 6px 14px;
         border-radius: 16px;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 500;
         white-space: nowrap;
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .experience-card:hover .skill-tag {
+        border-color: rgba(194, 56, 34, 0.5);
     }
   `}</style>
 );
 
 
 const Experience = (): React.ReactElement => {
-    const [activeIndex, setActiveIndex] = useState<number>(-1);
-    const [progressHeight, setProgressHeight] = useState<number>(0);
     const [lastActiveNode, setLastActiveNode] = useState(0);
 
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
     const timelineNodeRefs = useRef<(HTMLDivElement | null)[]>([]);
     const experienceCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-    
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const index = parseInt(entry.target.getAttribute('data-index') || '0', 10);
-                        setActiveIndex(index);
-                    }
-                });
-            },
-            { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
-        );
+    const progressBarRef = useRef<HTMLDivElement | null>(null);
+    const revealRef = useReveal<HTMLDivElement>();
 
-        experienceCardRefs.current.forEach((card) => {
-            if (card) observer.observe(card);
-        });
-
-        return () => {
-            experienceCardRefs.current.forEach((card) => {
-                if (card) observer.unobserve(card);
-            });
-        };
-    }, []);
-    
     // Handles all scroll-based animations
     useEffect(() => {
     // Use visualViewport for stable height on iOS, fallback to innerHeight
@@ -282,8 +283,11 @@ const Experience = (): React.ReactElement => {
         const endY = lastNode.offsetTop + lastNode.offsetHeight / 2;
         const totalTimelineHeight = endY - startY;
 
-        // Smooth progress bar - directly tied to scroll position
-        setProgressHeight(startY + totalTimelineHeight * progress);
+        // Smooth progress bar - write directly to the DOM so scrolling
+        // doesn't re-render the whole card list every frame
+        if (progressBarRef.current) {
+            progressBarRef.current.style.height = `${startY + totalTimelineHeight * progress}px`;
+        }
 
         // Activate nodes based on progress through experiences
         const numExperiences = experiences.length;
@@ -300,24 +304,19 @@ const Experience = (): React.ReactElement => {
         window.removeEventListener('scroll', handleScroll);
         window.visualViewport?.removeEventListener('resize', handleScroll);
     };
-}, [experiences.length]);
+}, []);
 
     return (
     <>
         <ExperienceStyles />
-        <div className="bg-gradient-to-b from-black to-secondary">
-            <section id="experience" className="container mx-auto md:px-10 p-3">
-                <p className="hero-heading">
-                    Experiences.
-                </p>
-                <p className="hero-text pb-10">
-                    Where I have grown.
-                </p>
+        <div className="bg-gradient-to-b from-black to-secondary" ref={revealRef}>
+            <section id="experience" className="container mx-auto md:px-10 p-3 pt-20">
+                <SectionHeading index="02" title="Experience" sub="Where I have grown" />
             </section>
             <section className="experience-section-container">
                 <div className="timeline-container">
                     <div className="timeline-wrapper">
-                        <div className="timeline-progress" style={{ height: `${progressHeight}px` }}></div>
+                        <div className="timeline-progress" ref={progressBarRef}></div>
                         {experiences.map((_, index) => (
                             <div
                                 key={index}
@@ -334,10 +333,10 @@ const Experience = (): React.ReactElement => {
                         <div
                             key={index}
                             ref={(el) => { experienceCardRefs.current[index] = el; }}
-                            className={`experience-card ${index <= lastActiveNode ? 'active' : ''}`}
+                            className={`experience-card reveal ${index <= lastActiveNode ? 'active' : ''}`}
                             data-index={index}
                         >
-                            <img src={exp.image} alt={`${exp.title} logo`} />
+                            <img src={exp.image} alt={`${exp.title} logo`} loading="lazy" decoding="async" />
                             <h3>{exp.title}</h3>
                             <div className="duration">{exp.duration}</div>
                             <p>{exp.description}</p>

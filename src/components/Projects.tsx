@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { BsClock } from "react-icons/bs";
+import SectionHeading from "./SectionHeading";
+import useReveal from "../hooks/useReveal";
 
 /**
  * @interface TabItem
@@ -83,7 +85,7 @@ const TAB_DATA: Record<string, TabSection> = {
       {
         projectTitle: "Visight",
         desc: "End-to-end computer vision system for F1 brand exposure analysis",
-        img: "/img/visight.png",
+        img: "/img/visight.webp",
         tech: ["Python", "Modal", "OpenCV", "AWS", "RL LLM", "VLM", "Computer Vision", "YOLOv8"],
         fullDesc: "",
         link: "https://www.linkedin.com/posts/rudraksh-monga_f1-sponsors-spend-2-billion-a-year-on-logo-activity-7402760209376673792-x1RY?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEJ1xlgBZIZG2xaGxaGWJgjhEwC403RhjaE"
@@ -156,7 +158,7 @@ const TAB_DATA: Record<string, TabSection> = {
       {
         projectTitle: "Fraternity Webpage",
         desc: "Full-stack web application for a fraternity",
-        img: "/img/dutoronto.png",
+        img: "/img/dutoronto.webp",
         tech: ["TypeScript", "React", "Tailwind CSS"],
         fullDesc: "Featuring mail list and a responsive design.",
         link: "https://github.com/Thehashhobo/DU-Toronto-Webpage",
@@ -204,19 +206,29 @@ const TAB_DATA: Record<string, TabSection> = {
   },
 };
 
+type TabButtonProps = {
+  tabKey: string;
+  title: string;
+  active: boolean;
+  onClick: () => void;
+  buttonRef: (el: HTMLButtonElement | null) => void;
+};
+
 /**
  * @component TabButton
- * @decription Renders a single interactive Tab Button for navigating between projects.
- * @param {object} props - Component props
- * @param {string} props.tabKey - Unique identifier for the tab, corresponding to an entry in TAB_DATA
- * @param {string} props.title - The display title for the tab button
+ * @description Single tab button; active state and underline are driven by React state.
  */
-const TabButton = ({ tabKey, title }: { tabKey: string; title: string }) => (
+const TabButton = ({ tabKey, title, active, onClick, buttonRef }: TabButtonProps) => (
   <button
-    className="tab-btn pb-2 hover:text-secondary transition cursor-pointer text-white text-sm sm:text-lg md:text-1xl lg:text-2xl"
-    data-tab={tabKey}
+    ref={buttonRef}
+    onClick={onClick}
+    className={`whitespace-nowrap pb-2 transition cursor-pointer text-xs sm:text-lg lg:text-2xl uppercase tracking-tight sm:tracking-wide ${
+      active ? 'text-black font-semibold' : 'text-white hover:text-black/70'
+    }`}
     role="tab"
-    aria-selected="false"
+    id={`tab-${tabKey}`}
+    aria-controls={tabKey}
+    aria-selected={active}
   >
     {title}
   </button>
@@ -232,21 +244,26 @@ const TabButton = ({ tabKey, title }: { tabKey: string; title: string }) => (
  * @param {string} props.tabKey - Unique identifier for a project category
  */
 const TabContent = ({ content, tabKey }: { content: TabItem[]; tabKey: string }) => (
-  <div className="tab-content hidden" id={tabKey}>
+  <div role="tabpanel" id={tabKey} aria-labelledby={`tab-${tabKey}`}>
   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mx-auto px-6">
     {content.map((item, i) => (
       <div // Project Card
-        key={i}
-        className={`bg-black text-white p-6 rounded-2xl shadow-lg flex flex-col ${ // Added flex flex-col here
+        key={`${tabKey}-${i}`}
+        style={{ ['--i' as string]: i }}
+        className={`card-enter group bg-black text-white p-6 rounded-2xl shadow-lg flex flex-col border border-white/10 transition-colors duration-500 hover:border-primary ${
           item.fullSpan ? "col-span-2" : ""
         }`}
       >
         {item.img && (
-          <img
-            src={item.img}
-            alt={item.desc}
-            className="rounded-xl object-cover h-48 w-full"
-          />
+          <div className="overflow-hidden rounded-xl">
+            <img
+              src={item.img}
+              alt={item.desc}
+              loading="lazy"
+              decoding="async"
+              className="object-cover h-48 w-full transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </div>
         )}
 
         {/* Project Meat */}
@@ -290,9 +307,10 @@ const TabContent = ({ content, tabKey }: { content: TabItem[]; tabKey: string })
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 self-start bg-white hover:bg-primary text-black hover:text-white text-sm px-4 py-2 rounded-md"
+              className="group/link inline-flex items-center gap-2 self-start bg-white hover:bg-primary text-black hover:text-white text-sm px-4 py-2 rounded-md transition-colors duration-300"
             >
-              View Project <FaExternalLinkAlt />
+              View Project{' '}
+              <FaExternalLinkAlt className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
             </a>
           )}
         </div>
@@ -310,110 +328,60 @@ const TabContent = ({ content, tabKey }: { content: TabItem[]; tabKey: string })
  * Uses client-side JS for tab functionality, dynamically updating underline indicator based on active tab
  */
 const Projects = () => {
-  /**
-   * @type {React.RefObject<HTMLDivElement>}
-   * @description Ref for the animated underline beneat tab buttons
-   */
+  const [activeTab, setActiveTab] = useState<string>('ai');
   const underlineRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const revealRef = useReveal<HTMLDivElement>();
 
-  /**
-   * @effect
-   * @decription Manages tab switching logic and the animated underline.
-   * 
-   * Attaches event listernes to tab buttons for lcick events, updates the underline's position and width based on the active tab.
-   * Handles resize event to reposition underline. 
-   * 
-   * 'SetTimeout' ensures initial tab activation after DOM rendered.
-   */
+  // Keep the underline glued to the active tab, including on resize
   useEffect(() => {
-    const buttons = document.querySelectorAll<HTMLButtonElement>(".tab-btn");
-    const contents = document.querySelectorAll<HTMLElement>(".tab-content");
-    const underline = underlineRef.current;
-    let selectedButton: HTMLElement | null = null;
-
-    /**
-     * Updates position and width of tab underline
-     * @param {HTMLElement} button - Currently selected tab button
-     */
-    const updateUnderline = (button: HTMLElement) => {
-      selectedButton = button;
-      if (underline) {
+    const update = () => {
+      const button = buttonRefs.current[activeTab];
+      const underline = underlineRef.current;
+      if (button && underline) {
         underline.style.width = `${button.offsetWidth}px`;
         underline.style.left = `${button.offsetLeft}px`;
       }
     };
 
-    /**
-     * Handles window resize events to adjust underline pos
-     */
-    const handleResize = () => {
-      if (selectedButton && underline) {
-        underline.style.width = `${selectedButton.offsetWidth}px`;
-        underline.style.left = `${selectedButton.offsetLeft}px`;
-      }
-    };
-
-    // Attach click listeners
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        // Deactivate buttons, hide content
-        buttons.forEach((btn) => {
-          btn.classList.remove("text-blue-700", "font-semibold");
-          btn.setAttribute("aria-selected", "false");
-        });
-        contents.forEach((content) => content.classList.add("hidden"));
-
-        // Activate clicked button, show content
-        const tabId = button.dataset.tab!;
-        document.getElementById(tabId)?.classList.remove("hidden");
-        button.classList.add("text-blue-700", "font-semibold");
-        button.setAttribute("aria-selected", "true");
-        updateUnderline(button);
-      });
-    });
-
-    // Resize listener
-    window.addEventListener("resize", handleResize);
-
-    // Click on default 'ai' tab after render
-    setTimeout(() => {
-      const defaultTab = document.querySelector<HTMLButtonElement>(".tab-btn[data-tab='ai']");
-      if (defaultTab) defaultTab.click();
-    }, 0);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [activeTab]);
 
   return (
-    <div id="projects" className="flex flex-col items-center pb-12 bg-primary w-full height-screen">
-      <div className="container px-3 md:px-10">
-        <h2 className="hero-heading">Projects.</h2>
-      <p className="hero-text mb-8">
-        What I&apos;ve been working on.
-      </p>
+    <section id="projects" ref={revealRef} className="flex flex-col items-center pb-12 pt-20 bg-primary w-full">
+      <div className="container px-3 md:px-10 w-full">
+        <SectionHeading index="04" title="Projects" sub="Selected work" className="mb-8" invert />
       </div>
 
-      <div className="relative w-full border-b border-gray-300 mb-8">
-        <div className="flex justify-center space-x-6 px-3" role="tablist">
+      <div className="relative w-full border-b border-black/30 mb-8">
+        <div className="flex flex-nowrap justify-center gap-x-3 sm:gap-x-6 px-3" role="tablist" aria-label="Project categories">
           {Object.entries(TAB_DATA).map(([key, { title }]) => (
-            <TabButton key={key} tabKey={key} title={title} />
+            <TabButton
+              key={key}
+              tabKey={key}
+              title={title}
+              active={activeTab === key}
+              onClick={() => setActiveTab(key)}
+              buttonRef={(el) => { buttonRefs.current[key] = el; }}
+            />
           ))}
         </div>
         <div
           ref={underlineRef}
-          className="tab-underline absolute bottom-0 h-1 bg-black rounded transition-all duration-300 ease-in-out"
+          className="absolute bottom-0 h-1 bg-black rounded transition-all duration-300 ease-in-out"
         ></div>
       </div>
 
       <div className="w-full">
-        {Object.entries(TAB_DATA).map(([key, { content }]) => (
-          <TabContent key={key} tabKey={key} content={content} />
-        ))}
+        <TabContent
+          key={activeTab}
+          tabKey={activeTab}
+          content={TAB_DATA[activeTab].content}
+        />
       </div>
-    </div>
+    </section>
   );
 };
 

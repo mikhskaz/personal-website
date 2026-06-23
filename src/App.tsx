@@ -10,12 +10,15 @@ import Experinece from './components/Experience'
 function App() {
   return (
     <div>
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <NavBar />
-      <Hero />
-      <About />
-      <Experinece />
-      <Skills />
-      <Projects />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Experinece />
+        <Skills />
+        <Projects />
+      </main>
       <Footer />
     </div>
   )
