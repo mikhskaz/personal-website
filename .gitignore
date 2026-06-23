@@ -24,7 +24,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# climate/ (Crisis & Canopy) is tracked and built into dist/canopyandcrisis.
+# climate/ (Crisis & Canopy) is tracked and built into dist/crisisandcanopy.
 # Its own climate/.gitignore excludes raw datasets; the global node_modules/dist
 # rules above also apply inside it; the app's runtime data in
 # climate/toronto-app/public/data/ is intentionally committed. Keep the heavy

@@ -37,7 +37,7 @@ const Hero = () => {
                         <div className="mt-24 md:mt-32 ml-6 md:ml-10">
                             <p className="meta-label intro-line mb-4">
                                 <span style={delay(0.1)}>
-                                    Toronto, Canada <span className="tick">/</span> U of T — CS &amp; CogSci <span className="tick">/</span> AI&nbsp;&amp;&nbsp;ML
+                                    Toronto, Canada <span className="tick">/</span> U of T, CS &amp; CogSci <span className="tick">/</span> AI&nbsp;&amp;&nbsp;ML
                                 </span>
                             </p>
                             <h1 className="font-display font-black uppercase leading-[0.85] text-[clamp(3.25rem,13vw,12rem)]">

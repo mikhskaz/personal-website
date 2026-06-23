@@ -72,8 +72,7 @@ export default function App() {
         <p className="footer-src">
           Data: Toronto Police Service open data (Persons in Crisis; Mental Health Act Apprehensions,
           {' '}{meta.period}), City of Toronto neighbourhood boundaries (158), and Tree Equity Score
-          Analyzer. Crisis events geocoded to the neighbourhood of occurrence. See DATA.md for full
-          provenance. Built with React + D3.
+          Analyzer. Crisis events geocoded to the neighbourhood of occurrence. Built with React + D3.
         </p>
       </footer>
 

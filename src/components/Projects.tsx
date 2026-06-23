@@ -79,7 +79,7 @@ const TAB_DATA: Record<string, TabSection> = {
         "desc": "AI-powered pipeline that converts raw CIMs into structured investment memos",
         "img": "/img/deal-memo-agent.png",
         "tech": ["Python", "FastAPI", "Claude API", "pdfplumber", "PyMuPDF", "Tavily", "Vanilla JS"],
-        "fullDesc": "An agentic document-intelligence pipeline built for private equity workflows. Upload a 60–200 page Confidential Information Memorandum and receive a structured, citation-backed investment memo in minutes. The system uses a multi-stage pipeline — PDF ingestion, LLM-driven extraction of financial metrics and deal terms, live web enrichment for comparable transactions and public comps, and parallel drafting of eight memo sections in institutional tone. Designed with a deliberate human-in-the-loop boundary: the agent surfaces diligence questions and flags risks but never recommends a bid price. Every output carries an AI-assisted disclaimer and full source traceability.",
+        "fullDesc": "An agentic document-intelligence pipeline built for private equity workflows. Upload a 60–200 page Confidential Information Memorandum and receive a structured, citation-backed investment memo in minutes. The system uses a multi-stage pipeline: PDF ingestion, LLM-driven extraction of financial metrics and deal terms, live web enrichment for comparable transactions and public comps, and parallel drafting of eight memo sections in institutional tone. Designed with a deliberate human-in-the-loop boundary: the agent surfaces diligence questions and flags risks but never recommends a bid price. Every output carries an AI-assisted disclaimer and full source traceability.",
         "link": "https://github.com/mikhskaz/deal-memo-agent"
       },
       {

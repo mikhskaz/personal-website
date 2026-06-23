@@ -15,7 +15,7 @@ const Footer = () => {
             {/* Big CTA */}
             <div className="px-6 md:px-10 pt-20 pb-14 reveal">
                 <p className="meta-label mb-8">
-                    <span className="tick">05 / </span>Contact — open to internships, research &amp; collaboration
+                    <span className="tick">05 / </span>Contact: open to internships, research &amp; collaboration
                 </p>
                 <a
                     href="mailto:mikhska@gmail.com"
@@ -60,7 +60,7 @@ const Footer = () => {
             {/* Colophon */}
             <div className="border-t border-white/10 px-6 md:px-10 py-5 flex flex-wrap items-center justify-between gap-3">
                 <p className="meta-label">&copy; {new Date().getFullYear()} Mikhail Skazhenyuk</p>
-                <p className="meta-label hidden sm:block">Toronto, Canada — 43.66°N, 79.39°W</p>
+                <p className="meta-label hidden sm:block">Toronto, Canada / 43.66°N, 79.39°W</p>
                 <p className="meta-label">Designed &amp; built with React + GSAP</p>
             </div>
         </footer>

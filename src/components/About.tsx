@@ -130,7 +130,7 @@ const About = () => {
             <div className="relative z-30 mx-6 md:mx-10 mb-16">
                 <SectionHeading index="01" title="About Me" sub="Who is behind the work" invert />
                 <p className="reveal mt-10 max-w-4xl font-display text-[clamp(1.8rem,4vw,3.2rem)] leading-[1.15] text-white" style={{ ['--reveal-delay' as string]: '0.15s' }}>
-                    Fourth-year at the <span className="text-bone">University of Toronto</span> — Specialist in{' '}
+                    Fourth-year at the <span className="text-bone">University of Toronto</span>, Specialist in{' '}
                     <span className="italic text-bone">Computer Science</span> with a focus in{' '}
                     <span className="text-outline">AI</span>, and a Major in{' '}
                     <span className="italic text-bone">Cognitive Science</span>. I build systems that learn, and
