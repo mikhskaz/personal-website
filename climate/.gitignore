@@ -1,0 +1,77 @@
+# ============================================================
+#  CSC495 Climate — .gitignore
+#  Goal: keep ALL datasets and ANY secrets out of the repo.
+#  Code, scripts, and the markdown write-ups stay tracked.
+#  (Everything ignored here is regenerable — see the *.py scripts
+#   + DATA.md / toronto-app/README.md for how to rebuild it.)
+# ============================================================
+
+# ---- Secrets / credentials / API keys --------------------
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.*
+credentials*.json
+client_secret*.json
+service_account*.json
+.earthengine/            # Google Earth Engine local auth (gee_landsat_lst.py)
+**/credentials
+
+# ---- Raw & derived DATA (by extension) -------------------
+*.csv
+*.geojson
+*.zip
+*.xlsx
+*.dbf
+*.shp
+*.shx
+*.prj
+*.cpg
+*.sbn
+*.sbx
+*.shp.xml
+*.tif
+*.tiff
+
+# ---- Raw & derived DATA (by location) --------------------
+# Source datasets that were downloaded into the repo
+Toronto_Heat_Vulnerability-main/
+tesa_toronto_shp/
+tesa_toronto_geojson/
+Neighbourhoods - 4326/
+# Generated / intermediate outputs (raw — not needed by the hosted app)
+neighbourhood_master.csv
+neighbourhood_lst.csv
+openmeteo_toronto_daily.json
+
+# ---- Python ----------------------------------------------
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# ---- Node / Vite -----------------------------------------
+node_modules/
+dist/
+*.local
+
+# ---- Editors / OS ----------------------------------------
+.claude/
+.DS_Store
+Thumbs.db
+
+# ---- KEEP: the app's pre-built runtime data --------------
+# Small (~1 MB), derived entirely from public open data and aggregated to
+# neighbourhoods (no personal data). The hosted static site fetches these at
+# runtime, so they MUST be committed or the deployed app renders blank.
+!toronto-app/public/data/
+!toronto-app/public/data/*.geojson
+!toronto-app/public/data/*.json
+
+STORYBOARD.md
+DATA.md
