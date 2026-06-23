@@ -139,6 +139,8 @@ const NavBar = () => {
                   menuOpen ? 'text-primary' : 'text-white'
                 }`}
                 onClick={() => setMenuOpen((prev) => !prev)}
+                aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={menuOpen}
               >
                 <FaAlignJustify />
               </button>
@@ -163,6 +165,8 @@ const NavBar = () => {
             <button
               onClick={toggleAudioIndicator}
               className="ml-4 flex items-center space-x-1 cursor-pointer"
+              aria-label={isAudioPlaying ? 'Pause background music' : 'Play background music'}
+              aria-pressed={isAudioPlaying}
             >
               <audio
                 ref={audioElementRef}
