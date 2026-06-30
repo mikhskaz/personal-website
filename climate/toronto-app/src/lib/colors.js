@@ -5,7 +5,7 @@ import {
   extent,
 } from 'd3'
 
-// Each map layer: a dark→accent ramp tuned for the dusk theme, a formatter,
+// Each map layer: a dark→accent ramp tuned for the dispatch theme, a formatter,
 // and copy. `type` controls sequential vs diverging (heat can be negative).
 export const LAYERS = {
   crisis_per1k: {
@@ -13,7 +13,7 @@ export const LAYERS = {
     label: 'Crisis intensity',
     unit: 'calls / 1,000 residents',
     short: 'Crisis',
-    ramp: ['#241410', '#5e2417', '#9c3a22', '#d65f30', '#f59b54', '#ffd9a6'],
+    ramp: ['#16181a', '#3a1410', '#7a1f12', '#c4321a', '#ff3d22', '#ffa23a'],
     type: 'sequential',
     fmt: (v) => Math.round(v).toLocaleString(),
     blurb: 'Persons-in-Crisis calls + Mental Health Act apprehensions, per 1,000 residents (2014–2024).',

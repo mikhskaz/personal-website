@@ -1,31 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import ChoroplethMap from './ChoroplethMap'
 
 const TYPE_COLORS = {
-  'Person in Crisis': '#c9a24b',
-  'Suicide-related': '#8b9a93',
-  Overdose: '#e2603f',
-}
-
-function useCountUp(target, duration = 1600) {
-  const [val, setVal] = useState(0)
-  useEffect(() => {
-    let raf
-    const start = performance.now()
-    const tick = (now) => {
-      const t = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - t, 3)
-      setVal(Math.round(target * eased))
-      if (t < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [target, duration])
-  return val
+  'Person in Crisis': '#c9922e',
+  'Suicide-related': '#7e8b86',
+  Overdose: '#ff3d22',
 }
 
 export default function Hero({ geo, meta, scale, onStart }) {
-  const count = useCountUp(meta.crisis_total)
   const ref = useRef(null)
   const colorFn = (p) => scale.color(p.crisis_per1k)
   const typeMax = Math.max(...Object.values(meta.type_split))
@@ -38,7 +20,7 @@ export default function Hero({ geo, meta, scale, onStart }) {
       </div>
 
       <div className="hero-content">
-        <p className="kicker">An interactive atlas · Toronto · {meta.period}</p>
+        <p className="kicker">Case file · Toronto · {meta.period}</p>
         <h1 className="hero-title">
           Crisis <span className="amp">&amp;</span> Canopy
         </h1>
@@ -49,7 +31,7 @@ export default function Hero({ geo, meta, scale, onStart }) {
 
         <div className="hero-stats">
           <div className="hero-stat">
-            <span className="hero-big">{count.toLocaleString()}</span>
+            <span className="hero-big">{meta.crisis_total.toLocaleString()}</span>
             <span className="hero-cap">crisis calls in a decade</span>
           </div>
           <div className="hero-stat">

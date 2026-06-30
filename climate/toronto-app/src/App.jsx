@@ -12,7 +12,6 @@ import NeighbourhoodPanel from './components/NeighbourhoodPanel'
 export default function App() {
   const { loading, error, geo, seasonal, meta } = useData()
   const [selected, setSelected] = useState(null)
-  const [hovered, setHovered] = useState(null)
 
   const scales = useMemo(() => {
     if (!geo) return null
@@ -54,7 +53,7 @@ export default function App() {
         onStart={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}
       />
       <ScrollyStory geo={geo} scales={scales} meta={meta} selected={selected} onSelect={setSelected} />
-      <MapExplorer geo={geo} selected={selected} onSelect={setSelected} hovered={hovered} onHover={setHovered} />
+      <MapExplorer geo={geo} selected={selected} onSelect={setSelected} />
       <CorrelationStudio geo={geo} onSelect={setSelected} />
       <SeasonalPulse geo={geo} seasonal={seasonal} selected={selected} onSelect={setSelected} />
 
