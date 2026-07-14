@@ -5,9 +5,9 @@ import { LAYERS, LAYER_ORDER, makeColorScale } from '../lib/colors'
 
 const CRISIS_COUNTS = {
   key: 'crisis_total',
-  label: 'Crisis volume',
+  label: 'Attended crisis-call volume · 2014–2024',
   unit: 'total calls, 2014–2024',
-  short: 'Crisis',
+  short: 'Crisis · 2014–24',
   ramp: LAYERS.crisis_per1k.ramp,
   type: 'sequential',
   fmt: (v) => Math.round(v).toLocaleString(),
@@ -15,13 +15,13 @@ const CRISIS_COUNTS = {
 
 // One self-contained map: its own layer picker, colour scale, legend and hover
 // readout. Clicking a neighbourhood still bubbles up to open the shared profile.
-function MapPanel({ geo, defaultMetric, selected, onSelect }) {
+function MapPanel({ geo, layers, defaultMetric, selected, onSelect }) {
   const [metric, setMetric] = useState(defaultMetric)
   const [perCapita, setPerCapita] = useState(true)
   const [hovered, setHovered] = useState(null)
 
   const isCrisis = metric === 'crisis_per1k'
-  const layer = isCrisis && !perCapita ? CRISIS_COUNTS : LAYERS[metric]
+  const layer = isCrisis && !perCapita ? CRISIS_COUNTS : layers[metric]
   const scale = useMemo(() => makeColorScale(layer, geo.features), [layer, geo])
   const colorFn = (p) => scale.color(p[layer.key])
 
@@ -36,7 +36,7 @@ function MapPanel({ geo, defaultMetric, selected, onSelect }) {
             className={`layer-btn${metric === k ? ' is-on' : ''}`}
             onClick={() => setMetric(k)}
           >
-            {LAYERS[k].short}
+            {layers[k].short}
           </button>
         ))}
       </div>
@@ -82,24 +82,24 @@ function MapPanel({ geo, defaultMetric, selected, onSelect }) {
 
 // Free-exploration view: two independent maps side by side so a single
 // neighbourhood can be compared across two layers at once (e.g. crisis vs heat).
-export default function MapExplorer({ geo, selected, onSelect }) {
+export default function MapExplorer({ geo, layers, selected, onSelect }) {
   return (
     <section className="explorer" id="explore">
       <div className="section-head">
-        <span className="section-num">01</span>
+        <span className="section-num">06</span>
         <div>
-          <h2 className="section-title">Explore it yourself</h2>
+          <h2 className="section-title">Now investigate the city yourself</h2>
           <p className="section-lede">
-            Two maps, two lenses. Set each side to a different layer — say <em>crisis</em> on the
-            left and <em>heat</em> on the right — and watch the same neighbourhoods light up on both.
-            Click either map to open the full profile.
+            The guided story is over; the evidence remains open. Put two measures side by side,
+            compare the same neighbourhood across both maps, and click anywhere for its full
+            profile. Similar colours suggest a place to inspect, not proof of a relationship.
           </p>
         </div>
       </div>
 
       <div className="explorer-duo">
-        <MapPanel geo={geo} defaultMetric="crisis_per1k" selected={selected} onSelect={onSelect} />
-        <MapPanel geo={geo} defaultMetric="temp_diff" selected={selected} onSelect={onSelect} />
+        <MapPanel geo={geo} layers={layers} defaultMetric="crisis_per1k" selected={selected} onSelect={onSelect} />
+        <MapPanel geo={geo} layers={layers} defaultMetric="treecanopy" selected={selected} onSelect={onSelect} />
       </div>
     </section>
   )

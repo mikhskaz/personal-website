@@ -1,8 +1,30 @@
 {
   "period": "2014\u20132024",
+  "years": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "vintages": {
+    "crisis_calls": "2014\u20132024",
+    "population_denominator": "2021 Census",
+    "tree_canopy": "2018",
+    "demographics": "2021 Census",
+    "summer_heat": "annual summers 2014\u20132024",
+    "tree_equity_score": "2024 snapshot",
+    "neighbourhood_boundaries": "2022"
+  },
   "pic_total": 324114,
   "mha_total": 117310,
-  "crisis_total": 441424,
+  "crisis_total": 324114,
   "per_day": 81.0,
   "type_split": {
     "Person in Crisis": 185562,
@@ -13,7 +35,7 @@
     "Low-income %": 0.453,
     "Senior %": -0.382,
     "Tree canopy %": -0.33,
-    "Heat extremity": 0.181,
+    "Heat extremity": 0.156,
     "People of colour %": -0.095,
     "Unemployment": 0.034,
     "Tree Equity Score": 0.037
@@ -68,5 +90,81 @@
       "canopy": 12.2
     }
   ],
-  "n_neighbourhoods": 158
+  "n_neighbourhoods": 158,
+  "lst": {
+    "mode": "annual",
+    "source": "Landsat 8/9 Collection 2 Level-2",
+    "years": [
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "neighbourhood_year_observations": 1737,
+    "expected_neighbourhood_year_observations": 1738
+  },
+  "openmeteo": {
+    "source": "Open-Meteo Historical Weather API / ERA5-Land",
+    "measure": "June-August mean 2 m air temperature",
+    "years": [
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "neighbourhood_year_observations": 1738
+  },
+  "resolutions": {
+    "occurrence_created": 0.414,
+    "apprehension_made": 0.248,
+    "mcit_attended": 0.164,
+    "apprehension_by_type": {
+      "Overdose": 0.109,
+      "Person in Crisis": 0.223,
+      "Suicide-related": 0.343
+    },
+    "mcit_by_year": [
+      0.146,
+      0.166,
+      0.158,
+      0.15,
+      0.138,
+      0.119,
+      0.136,
+      0.19,
+      0.209,
+      0.187,
+      0.194
+    ],
+    "mha_by_section": {
+      "Mha Sec 17 (Power Of App)": 92712,
+      "Mha Sec 15 (Form 1)": 9819,
+      "Mha Sec 16 (Form 2)": 8179,
+      "Mha Sec 33.4 (Form 47 Cto)": 5119,
+      "Mha Sec 28(1) (Form 9 Elopee)": 1481
+    },
+    "mha_premises": {
+      "Apartment": 48578,
+      "House": 20898,
+      "Outside": 19165,
+      "Other": 19072,
+      "Commercial": 5472,
+      "Transit": 3174,
+      "Educational": 951
+    }
+  }
 }

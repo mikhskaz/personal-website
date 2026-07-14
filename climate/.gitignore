@@ -9,6 +9,7 @@
 # ---- Secrets / credentials / API keys --------------------
 .env
 .env.*
+!.env.example
 *.env
 *.key
 *.pem
@@ -54,16 +55,28 @@ venv/
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
 
 # ---- Node / Vite -----------------------------------------
 node_modules/
 dist/
 *.local
+.vite/
+.eslintcache
+*.tsbuildinfo
 
 # ---- Editors / OS ----------------------------------------
 .claude/
+.vscode/
 .DS_Store
 Thumbs.db
+Desktop.ini
 
 # ---- KEEP: the app's pre-built runtime data --------------
 # Small (~1 MB), derived entirely from public open data and aggregated to
@@ -74,3 +87,5 @@ Thumbs.db
 !toronto-app/public/data/*.json
 
 STORYBOARD.md
+OPENMETEO.md
+coolingspace/

@@ -2,7 +2,7 @@
 Cross-dataset analysis to ground the storyboard in real numbers.
 
 Joins:
-  TPS crisis calls (PIC + MHA)  --HOOD_158-->  Neighbourhood (158)  --name-->  TESA (tree equity / canopy / heat / equity)
+  TPS Persons-in-Crisis calls  --HOOD_158-->  Neighbourhood (158)  --name-->  TESA (tree equity / canopy / heat / equity)
 
 Outputs a findings text block: per-capita crisis rates by neighbourhood,
 tree-equity / canopy / heat correlations with crisis, seasonal pattern,
@@ -92,10 +92,13 @@ agg = tesa.groupby("neighbourh").apply(lambda d: pd.Series({
 m = agg.join([pic_by_nb, mha_by_nb, pic_app_rate]).copy()
 m["pic_total"] = m["pic_total"].fillna(0)
 m["mha_total"] = m["mha_total"].fillna(0)
-m["crisis_total"] = m["pic_total"] + m["mha_total"]
+# A crisis-call total is the PIC call dataset only. MHA apprehensions are a
+# separate outcome dataset and must not be added as though they were calls;
+# some can describe the same underlying police response.
+m["crisis_total"] = m["pic_total"]
 # per-capita: total events over 11 yrs per 1,000 residents
 m["pic_per1k"] = m["pic_total"] / m["population"] * 1000
-m["crisis_per1k"] = m["crisis_total"] / m["population"] * 1000
+m["crisis_per1k"] = m["pic_per1k"]
 m = m[m["population"] > 0]
 
 print(f"\nNeighbourhoods in master join: {len(m)}")

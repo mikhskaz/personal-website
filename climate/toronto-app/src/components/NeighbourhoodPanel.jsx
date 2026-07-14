@@ -1,4 +1,6 @@
 import { num, pct, signed, rankOf } from '../lib/format'
+import { heatVintageLabel } from '../lib/colors'
+import Sparkline from './Sparkline'
 
 const TYPE_COLORS = {
   'Person in Crisis': '#c9a24b',
@@ -6,24 +8,6 @@ const TYPE_COLORS = {
   Overdose: '#e2603f',
 }
 const AGE_ORDER = ['under 18', '18 to 24', '25 to 34', '35 to 44', '45 to 54', '55 to 64', '65 and older']
-
-function Sparkline({ values, color = '#e2603f' }) {
-  const w = 220
-  const h = 46
-  const max = Math.max(...values, 1)
-  const min = Math.min(...values, 0)
-  const x = (i) => (i / (values.length - 1)) * w
-  const y = (v) => h - 4 - ((v - min) / (max - min || 1)) * (h - 8)
-  const line = values.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')
-  const area = `${line} L${w},${h} L0,${h} Z`
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="spark" preserveAspectRatio="none">
-      <path d={area} fill={color} opacity="0.14" />
-      <path d={line} fill="none" stroke={color} strokeWidth="2" />
-      <circle cx={x(values.length - 1)} cy={y(values[values.length - 1])} r="3" fill={color} />
-    </svg>
-  )
-}
 
 function StatRow({ label, value, formatted, median, higherWorse }) {
   const delta = value == null || median == null ? 0 : value - median
@@ -34,15 +18,16 @@ function StatRow({ label, value, formatted, median, higherWorse }) {
       <span className="stat-label">{label}</span>
       <span className="stat-value">{formatted}</span>
       <span className={`stat-delta ${worse ? 'bad' : 'good'}`}>
-        {arrow} <span className="muted">vs {label === 'Tree Equity' || label === 'Tree canopy' ? 'median' : 'med.'}</span>
+        {arrow} <span className="muted">vs {label.startsWith('Tree Equity') || label.startsWith('Tree canopy') ? 'median' : 'med.'}</span>
       </span>
     </div>
   )
 }
 
-export default function NeighbourhoodPanel({ feature, allProps, medians, onClose }) {
+export default function NeighbourhoodPanel({ feature, allProps, medians, meta, onClose }) {
   if (!feature) return null
   const p = feature
+  const heatVintage = heatVintageLabel(meta)
   const crisisVals = allProps.map((x) => x.crisis_per1k)
   const rank = rankOf(p.crisis_per1k, crisisVals, true)
   const total = crisisVals.filter((v) => v != null).length
@@ -68,7 +53,7 @@ export default function NeighbourhoodPanel({ feature, allProps, medians, onClose
       <div className="panel-hero">
         <div className="panel-hero-num">{p.crisis_per1k == null ? '—' : Math.round(p.crisis_per1k)}</div>
         <div className="panel-hero-cap">
-          crisis calls / 1,000 residents
+          crisis calls / 1,000 residents · 2014–2024
           <br />
           <strong>#{rank}</strong> of {total} neighbourhoods
         </div>
@@ -76,10 +61,10 @@ export default function NeighbourhoodPanel({ feature, allProps, medians, onClose
 
       <div className="panel-block">
         <div className="panel-block-h">Environment &amp; equity</div>
-        <StatRow label="Tree canopy" value={p.treecanopy} formatted={pct(p.treecanopy)} median={medians.treecanopy} higherWorse={false} />
-        <StatRow label="Summer heat" value={p.temp_diff} formatted={signed(p.temp_diff) + '°C'} median={medians.temp_diff} higherWorse={true} />
-        <StatRow label="Low income" value={p.pctpov} formatted={pct(p.pctpov)} median={medians.pctpov} higherWorse={true} />
-        <StatRow label="Tree Equity" value={p.tes} formatted={p.tes == null ? '—' : Math.round(p.tes)} median={medians.tes} higherWorse={false} />
+        <StatRow label="Tree canopy · 2018" value={p.treecanopy} formatted={pct(p.treecanopy)} median={medians.treecanopy} higherWorse={false} />
+        <StatRow label={`Summer heat · ${heatVintage}`} value={p.temp_diff} formatted={signed(p.temp_diff) + '°C'} median={medians.temp_diff} higherWorse={true} />
+        <StatRow label="Low income · 2021 Census" value={p.pctpov} formatted={pct(p.pctpov)} median={medians.pctpov} higherWorse={true} />
+        <StatRow label="Tree Equity · 2024 snapshot" value={p.tes} formatted={p.tes == null ? '—' : Math.round(p.tes)} median={medians.tes} higherWorse={false} />
       </div>
 
       <div className="panel-block">

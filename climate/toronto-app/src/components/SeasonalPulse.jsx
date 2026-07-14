@@ -12,18 +12,26 @@ const TYPE_COLORS = {
   Overdose: '#e2603f',
 }
 const FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const YEARS = Array.from({ length: 11 }, (_, index) => 2014 + index)
 
 export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
   const [month, setMonth] = useState(7) // August
+  const [year, setYear] = useState('all')
+  const [mapMetric, setMapMetric] = useState('calls')
   const [off, setOff] = useState({})
 
+  const yearIndex = year === 'all' ? null : YEARS.indexOf(year)
+  const periodData = year === 'all' ? seasonal : seasonal.by_year?.[String(year)]
+  const chartIndex = periodData?.index || seasonal.index
   const visible = seasonal.types.filter((t) => !off[t])
-  const allVals = seasonal.types.flatMap((t) => seasonal.index[t])
+  const allVals = seasonal.types.flatMap((t) => chartIndex[t])
   const y = scaleLinear().domain([Math.min(...allVals) - 2, Math.max(...allVals) + 2]).range([H - M.bottom, M.top])
   const x = (i) => M.left + (i / 11) * (W - M.left - M.right)
 
   // Real Toronto monthly mean air temperature (Open-Meteo / ERA5), if present.
-  const temp = seasonal.temp_monthly
+  const temp = year === 'all'
+    ? seasonal.temp_monthly
+    : seasonal.temp_monthly_by_year?.[String(year)]
   const yT = temp
     ? scaleLinear().domain([Math.min(...temp) - 3, Math.max(...temp) + 3]).range([H - M.bottom, M.top])
     : null
@@ -34,16 +42,51 @@ export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
     : null
   const tempLine = temp ? temp.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${yT(v).toFixed(1)}`).join(' ') : null
 
-  // Stable per-capita colour scale across all months for the mini map.
-  const monthScale = useMemo(() => {
-    const all = []
+  // Stable scales across every year/month, so year changes remain comparable.
+  const mapScales = useMemo(() => {
+    const calls = []
+    const temperatures = []
     geo.features.forEach((f) => {
       const pop = f.properties.population
-      if (pop) f.properties.monthly.forEach((c) => all.push((c / pop) * 1000))
+      if (pop) {
+        ;(f.properties.monthly_by_year || []).forEach((months) => {
+          months.forEach((count) => calls.push((count / pop) * 1000))
+        })
+      }
+      ;(f.properties.monthly_air_temp_c || []).forEach((months) => {
+        months.forEach((value) => {
+          if (value != null) temperatures.push(value)
+        })
+      })
     })
-    return scaleSequential(interpolateRgbBasis(LAYERS.crisis_per1k.ramp)).domain(extent(all))
+    return {
+      calls: scaleSequential(interpolateRgbBasis(LAYERS.crisis_per1k.ramp)).domain(extent(calls)),
+      openmeteo: scaleSequential(interpolateRgbBasis([
+        '#173042', '#28566d', '#4f8295', '#b57a48', '#e3a451', '#ffd185',
+      ])).domain(extent(temperatures)),
+    }
   }, [geo])
-  const colorFn = (p) => (p.population ? monthScale((p.monthly[month] / p.population) * 1000) : '#2a241e')
+
+  const meanMonth = (series) => {
+    const values = series.map((months) => months?.[month]).filter((value) => value != null)
+    return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null
+  }
+  const mapValue = (p) => {
+    if (mapMetric === 'openmeteo') {
+      return yearIndex == null
+        ? meanMonth(p.monthly_air_temp_c || [])
+        : p.monthly_air_temp_c?.[yearIndex]?.[month] ?? null
+    }
+    if (!p.population) return null
+    const count = yearIndex == null
+      ? (p.monthly?.[month] || 0) / YEARS.length
+      : p.monthly_by_year?.[yearIndex]?.[month]
+    return count == null ? null : (count / p.population) * 1000
+  }
+  const colorFn = (p) => {
+    const value = mapValue(p)
+    return value == null ? '#2a241e' : mapScales[mapMetric](value)
+  }
 
   const linePath = (vals) => vals.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')
 
@@ -52,12 +95,56 @@ export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
       <div className="section-head">
         <span className="section-num">03</span>
         <div>
-          <h2 className="section-title">Crisis follows the seasons — and the heat</h2>
+          <h2 className="section-title">When call patterns change</h2>
           <p className="section-lede">
-            Crisis indexed so 100 = each call type’s annual average; the shaded band is Toronto’s real
-            mean air temperature (°C, right axis). Drag the month to watch the city heat up on the map.
-            Overdose peaks with deep-summer heat; the others climb with spring.
+            Choose a full calendar year, then move month by month. Each call type is indexed to
+            that year&apos;s own monthly average of 100; Open-Meteo 2 m air temperature provides
+            weather context, not a causal test. Use “All years” for the 2014–2024 pattern.
           </p>
+        </div>
+      </div>
+
+      <div className="seasonal-controls">
+        <div className="seasonal-control-group">
+          <span className="seasonal-control-label">Calendar year</span>
+          <div className="studio-year-buttons" role="group" aria-label="Choose calendar year">
+            <button
+              className={year === 'all' ? 'is-on' : ''}
+              aria-pressed={year === 'all'}
+              onClick={() => setYear('all')}
+            >
+              All years
+            </button>
+            {YEARS.map((optionYear) => (
+              <button
+                key={optionYear}
+                className={year === optionYear ? 'is-on' : ''}
+                aria-pressed={year === optionYear}
+                onClick={() => setYear(optionYear)}
+              >
+                {optionYear}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="seasonal-control-group">
+          <span className="seasonal-control-label">Map measure</span>
+          <div className="layer-switch" role="group" aria-label="Choose seasonal map measure">
+            <button
+              className={`layer-btn${mapMetric === 'calls' ? ' is-on' : ''}`}
+              aria-pressed={mapMetric === 'calls'}
+              onClick={() => setMapMetric('calls')}
+            >
+              Crisis calls
+            </button>
+            <button
+              className={`layer-btn${mapMetric === 'openmeteo' ? ' is-on' : ''}`}
+              aria-pressed={mapMetric === 'openmeteo'}
+              onClick={() => setMapMetric('openmeteo')}
+            >
+              Open-Meteo air
+            </button>
+          </div>
         </div>
       </div>
 
@@ -90,10 +177,10 @@ export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
               </text>
             ))}
             {visible.map((t) => (
-              <path key={t} d={linePath(seasonal.index[t])} fill="none" stroke={TYPE_COLORS[t]} strokeWidth="2.6" className="sline" />
+              <path key={t} d={linePath(chartIndex[t])} fill="none" stroke={TYPE_COLORS[t]} strokeWidth="2.6" className="sline" />
             ))}
             {visible.map((t) => {
-              const vals = seasonal.index[t]
+              const vals = chartIndex[t]
               const pk = vals.indexOf(Math.max(...vals))
               return (
                 <g key={`pk${t}`}>
@@ -121,7 +208,7 @@ export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
             {temp && (
               <span className="type-toggle static">
                 <i className="temp-swatch" />
-                Air temp °C
+                Open-Meteo air °C · {year === 'all' ? '2014–24 mean' : year}
               </span>
             )}
           </div>
@@ -135,8 +222,11 @@ export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
         <div className="seasonal-map">
           <ChoroplethMap geo={geo} colorFn={colorFn} selected={selected} onSelect={onSelect} />
           <p className="seasonal-mapcap">
-            Crisis intensity in <strong>{FULL[month]}</strong>, per 1,000 residents. Colour scale is
-            fixed across months so you can see the city brighten through summer.
+            {mapMetric === 'calls' ? (
+              <>Attended-call intensity in <strong>{FULL[month]} {year === 'all' ? '· 2014–24 monthly mean' : year}</strong>, per 1,000 residents.</>
+            ) : (
+              <>Open-Meteo mean 2 m air temperature in <strong>{FULL[month]} {year === 'all' ? '· 2014–24 mean' : year}</strong>.</>
+            )}{' '}The colour scale stays fixed across all years and months.
           </p>
         </div>
       </div>

@@ -54,6 +54,7 @@ Both cover **2014 → 2026** (years present run 2014–2026). Neighbourhood code
 
 ## 3. Tree Equity Score / canopy — `tesa_toronto_geojson/` (+ `tesa_toronto_shp/`)
 - **GeoJSON** `tesa_toronto_geojson/tesa_toronto_tes.geojson` (~1.7 MB) is web-map canonical: FeatureCollection, **585 features** (census tracts), Polygon, CRS = OGC:CRS84 (WGS84). Shapefile set is the same for desktop GIS. Full field docs in `*/data_dictionary.txt`. Source/methodology: <https://www.treeequityscore.org/analyzer/toronto>.
+- **Data vintages shown in the app:** tree canopy is from the City of Toronto's **2018** forest and land-cover data; population and demographic measures are from the **2021 Census**; heat extremity uses **summer 2022** Landsat surface temperatures; and Tree Equity Score is the **2024 TESA snapshot**. These are cross-sectional layers from different years, not annual measures spanning 2014–2024.
 - **GeoJSON field names differ slightly from the shapefile data_dictionary** (the geojson names are authoritative for the map): adds `county`; uses `dep_perc` (no `dep_ratio`), `depratnorm`, and `health_nor` (vs `healthnorm` in the dict). 29 properties total.
 - Key fields:
   - `DGUID` — Canada census tract id (primary key).
@@ -63,6 +64,32 @@ Both cover **2014 → 2026** (years present run 2014–2026). Neighbourhood code
   - Equity/demographic (all normalized variants `*norm` exist): `pctpoc` (people of colour), `pctpov` (low income LIM-AT), `unemplrate`, `dep_ratio`/`dep_perc` (dependency: children+seniors / 15–64), `child_perc`, `seniorperc`, `linguistic` (neither EN nor FR), `healthnorm`.
   - `temp_diff` / `temp_norm` — tract heat extremity vs urban average.
   - `neighbourh`, `nghbrhd_id` — name/id of the **2022 158-neighbourhood** the tract sits in (links to §2 and TPS `HOOD_158`); `nghb_score` neighbourhood TES.
+
+### Annual Landsat LST enrichment
+
+`gee_landsat_lst.py` can derive annual June–August Landsat 8/9 Collection 2
+Level-2 surface temperature for 2014–2024 at 30 m. It writes the ignored
+intermediate `neighbourhood_lst.csv` in long form:
+`name, year, lst_c, city_lst_c, temp_diff_c, pixel_count, scene_count`.
+
+When that CSV is present, `build_app_data.py` adds these GeoJSON properties:
+
+- `yearly_lst_c`: absolute summer LST in °C for each year.
+- `yearly_temp_diff`: the neighbourhood's LST minus that year's citywide
+  pixel mean, which is the preferred value for comparing spatial heat.
+- `lst_c` and `temp_diff`: the corresponding mean across available years,
+  retained for the all-years maps and correlations.
+
+The annual arrays align with the call-count `yearly` array and
+`meta.json.years`. Missing or fully masked neighbourhood-years are serialized
+as `null`, rather than being silently replaced with another year.
+
+For summer-aligned comparisons, each GeoJSON feature also contains
+`yearly_summer` and `yearly_summer_by_type`. These count attended calls from
+June through August for every year, using the same year ordering as
+`yearly_lst_c` and `yearly_temp_diff`. The Correlation Studio can therefore
+compare JJA calls with the corresponding summer LST instead of using full-year
+calls.
 
 ---
 
