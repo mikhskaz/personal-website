@@ -93,13 +93,13 @@ export default function SeasonalPulse({ geo, seasonal, selected, onSelect }) {
   return (
     <section className="seasonal" id="when">
       <div className="section-head">
-        <span className="section-num">03</span>
+        <span className="section-num">A3</span>
         <div>
           <h2 className="section-title">When call patterns change</h2>
           <p className="section-lede">
-            Choose a full calendar year, then move month by month. Each call type is indexed to
-            that year&apos;s own monthly average of 100; Open-Meteo 2 m air temperature provides
-            weather context, not a causal test. Use “All years” for the 2014–2024 pattern.
+            Calls rise and fall by month, but the three call types do not trace one identical
+            seasonal curve. Compare them with 2 m air temperature without assuming that warm
+            weather caused the change. Each line is indexed to its own monthly average of 100.
           </p>
         </div>
       </div>

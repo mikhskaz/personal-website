@@ -85,7 +85,7 @@ export default function CrisisPrimer({ meta }) {
   return (
     <section className="primer" id="calls">
       <div className="section-head">
-        <span className="section-num">01</span>
+        <span className="section-num">A1</span>
         <div>
           <h2 className="section-title">What the map is counting</h2>
           <p className="section-lede">

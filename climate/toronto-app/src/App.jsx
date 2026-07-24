@@ -2,15 +2,14 @@ import { useMemo, useState } from 'react'
 import { useData } from './lib/useData'
 import { LAYER_ORDER, heatVintageLabel, layersForMeta, makeColorScale } from './lib/colors'
 import { median } from './lib/format'
-import Hero from './components/Hero'
 import PhoneIntro from './components/PhoneIntro'
-import ScrollyStory from './components/ScrollyStory'
-import CrisisPrimer from './components/CrisisPrimer'
-import MapExplorer from './components/MapExplorer'
-import BoroughProfiles from './components/BoroughProfiles'
-import CorrelationStudio from './components/CorrelationStudio'
-import SeasonalPulse from './components/SeasonalPulse'
 import NeighbourhoodPanel from './components/NeighbourhoodPanel'
+import NarrativeHero from './components/NarrativeHero'
+import NarrativeStory from './components/NarrativeStory'
+import StoryProgress from './components/StoryProgress'
+import StoryFinale from './components/StoryFinale'
+import EvidenceArchive from './components/EvidenceArchive'
+import './narrative.css'
 
 export default function App() {
   const { loading, error, geo, seasonal, meta } = useData()
@@ -19,6 +18,7 @@ export default function App() {
   // overlay mounted through its exit animation.
   const [answered, setAnswered] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
+  const [archiveOpen, setArchiveOpen] = useState(false)
   const layers = useMemo(() => layersForMeta(meta), [meta])
 
   const scales = useMemo(() => {
@@ -44,6 +44,13 @@ export default function App() {
     [selected, allProps]
   )
 
+  const openEvidence = () => {
+    setArchiveOpen(true)
+    window.requestAnimationFrame(() => {
+      document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })
+    })
+  }
+
   if (loading) return <div className="loader"><span className="loader-dot" /> Mapping Toronto…</div>
   if (error)
     return (
@@ -57,32 +64,42 @@ export default function App() {
       {showIntro && (
         <PhoneIntro onAnswer={() => setAnswered(true)} onDone={() => setShowIntro(false)} />
       )}
-      <Hero
+      <StoryProgress visible={answered} />
+      <NarrativeHero
         geo={geo}
         meta={meta}
         scale={scales.crisis_per1k}
         entered={answered}
-        onStart={() => document.getElementById('calls')?.scrollIntoView({ behavior: 'smooth' })}
+        onStart={() => document.getElementById('measure')?.scrollIntoView({ behavior: 'smooth' })}
       />
-      <CrisisPrimer meta={meta} />
-      <ScrollyStory geo={geo} scales={scales} layers={layers} meta={meta} />
-      <SeasonalPulse geo={geo} seasonal={seasonal} selected={selected} onSelect={setSelected} />
-      <BoroughProfiles geo={geo} meta={meta} selected={selected} onSelect={setSelected} />
-      <CorrelationStudio geo={geo} onSelect={setSelected} />
-      <MapExplorer geo={geo} layers={layers} selected={selected} onSelect={setSelected} />
+      <NarrativeStory
+        geo={geo}
+        scales={scales}
+        layers={layers}
+        meta={meta}
+        selected={selected}
+        onSelect={setSelected}
+      />
+      <StoryFinale onExplore={openEvidence} />
+      <EvidenceArchive
+        open={archiveOpen}
+        onToggle={(event) => setArchiveOpen(event.currentTarget.open)}
+        geo={geo}
+        seasonal={seasonal}
+        meta={meta}
+        layers={layers}
+        selected={selected}
+        onSelect={setSelected}
+      />
 
       <footer className="footer">
         <h2 className="footer-take">
-          Target the gap, not the score.
+          What this app can and cannot say
         </h2>
         <p className="footer-body">
-          Across Toronto's 158 neighbourhoods, crisis-call rates have their strongest measured
-          association with low income (r = {meta.correlations['Low-income %']}). The association
-          is moderate for thin tree canopy (r = {meta.correlations['Tree canopy %']}) and weak for
-          heat (r = {meta.correlations['Heat extremity']}), while the composite Tree Equity Score
-          barely moves with call rates (r = {meta.correlations['Tree Equity Score']}). These
-          patterns do not prove causation. They argue for looking beneath a single score when
-          deciding where more study, shade, cooling, and social support may be warranted.
+          The maps locate overlaps among recorded call demand, low income, canopy, and heat. They
+          do not show why any person experienced a crisis, prove that trees prevent calls, or rank
+          greening against income and mental-health policy.
         </p>
         <p className="footer-src">
           Data: Toronto Police Service open data (Persons in Crisis; Mental Health Act Apprehensions,

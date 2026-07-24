@@ -1,4 +1,4 @@
-# Crisis & Canopy — interactive Toronto atlas
+# Crisis & Canopy: interactive Toronto atlas
 
 A scrollytelling React app that maps Toronto's 158 neighbourhoods to explore how
 mental-health crisis calls line up with summer heat, tree canopy, and poverty.
@@ -94,4 +94,4 @@ neighbourhood anywhere opens the same drill-down panel.
 ## Stack
 
 React 18 + Vite + D3 (geo projection, scales, interpolators). Fonts: Fraunces /
-Hanken Grotesk / JetBrains Mono. No backend — all data is static and pre-joined.
+Hanken Grotesk / JetBrains Mono. No backend; all data is static and pre-joined.

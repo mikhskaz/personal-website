@@ -29,8 +29,8 @@ export default function Hero({ geo, meta, scale, onStart, entered = true }) {
           Crisis <span className="amp">&amp;</span> Canopy
         </h1>
         <p className="hero-sub">
-          Where, and when, do mental-health crises concentrate across Toronto, and how do they
-          line up with summer surface heat ({heatVintage}) and the 2018 tree-canopy snapshot?
+          Where do Toronto&apos;s police-attended mental-health crisis calls concentrate, and how do
+          low income, 2018 tree canopy, and summer surface heat ({heatVintage}) overlap?
         </p>
 
         <div className="hero-stats">

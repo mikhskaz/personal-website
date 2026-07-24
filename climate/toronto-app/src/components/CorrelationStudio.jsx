@@ -302,16 +302,14 @@ export default function CorrelationStudio({ geo, onSelect }) {
   return (
     <section className="studio" id="why">
       <div className="section-head">
-        <span className="section-num">05</span>
+        <span className="section-num">A5</span>
         <div>
           <h2 className="section-title">What moves together - and what does not</h2>
           <p className="section-lede">
-            Click neighbourhoods on the map to include or exclude them from the calculation. The
-            scatterplot, regression line, Pearson correlation, and sample size update immediately;
-            the axes remain under your control. Environmental observations match the call window:
-            Summer uses June–August Landsat or Open-Meteo temperature, while Full year uses
-            Open-Meteo&apos;s January–December mean. “All years” pools neighbourhood-years instead
-            of mixing an eleven-year call total with one temperature value.
+            A visible slope tells you what co-varies, not why. Change the axes, year, and call
+            window, or exclude neighbourhoods, to see how sensitive each bivariate relationship is.
+            “All years” pools matched neighbourhood-years for temperature comparisons instead of
+            mixing an eleven-year call total with one weather value.
           </p>
         </div>
       </div>

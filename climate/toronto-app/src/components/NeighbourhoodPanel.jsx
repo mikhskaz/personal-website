@@ -51,7 +51,7 @@ export default function NeighbourhoodPanel({ feature, allProps, medians, meta, o
       <h3 className="panel-title">{p.name}</h3>
 
       <div className="panel-hero">
-        <div className="panel-hero-num">{p.crisis_per1k == null ? '—' : Math.round(p.crisis_per1k)}</div>
+        <div className="panel-hero-num">{p.crisis_per1k == null ? 'N/A' : Math.round(p.crisis_per1k)}</div>
         <div className="panel-hero-cap">
           crisis calls / 1,000 residents · 2014–2024
           <br />
@@ -64,7 +64,7 @@ export default function NeighbourhoodPanel({ feature, allProps, medians, meta, o
         <StatRow label="Tree canopy · 2018" value={p.treecanopy} formatted={pct(p.treecanopy)} median={medians.treecanopy} higherWorse={false} />
         <StatRow label={`Summer heat · ${heatVintage}`} value={p.temp_diff} formatted={signed(p.temp_diff) + '°C'} median={medians.temp_diff} higherWorse={true} />
         <StatRow label="Low income · 2021 Census" value={p.pctpov} formatted={pct(p.pctpov)} median={medians.pctpov} higherWorse={true} />
-        <StatRow label="Tree Equity · 2024 snapshot" value={p.tes} formatted={p.tes == null ? '—' : Math.round(p.tes)} median={medians.tes} higherWorse={false} />
+        <StatRow label="Tree Equity · 2024 snapshot" value={p.tes} formatted={p.tes == null ? 'N/A' : Math.round(p.tes)} median={medians.tes} higherWorse={false} />
       </div>
 
       <div className="panel-block">

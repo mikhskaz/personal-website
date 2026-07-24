@@ -84,15 +84,15 @@ function MapPanel({ geo, layers, defaultMetric, selected, onSelect }) {
 // neighbourhood can be compared across two layers at once (e.g. crisis vs heat).
 export default function MapExplorer({ geo, layers, selected, onSelect }) {
   return (
-    <section className="explorer" id="explore">
+    <section className="explorer" id="neighbourhood-explorer">
       <div className="section-head">
-        <span className="section-num">06</span>
+        <span className="section-num">A6</span>
         <div>
           <h2 className="section-title">Now investigate the city yourself</h2>
           <p className="section-lede">
-            The guided story is over; the evidence remains open. Put two measures side by side,
-            compare the same neighbourhood across both maps, and click anywhere for its full
-            profile. Similar colours suggest a place to inspect, not proof of a relationship.
+            The decision question is where needs overlap. Put two measures side by side, compare
+            the same neighbourhood across both maps, and click anywhere for its full profile.
+            Similar colours identify a place to investigate, not proof of a relationship.
           </p>
         </div>
       </div>

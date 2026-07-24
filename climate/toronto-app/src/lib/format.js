@@ -1,6 +1,6 @@
-export const pct = (v, d = 0) => (v == null ? '—' : (v * 100).toFixed(d) + '%')
-export const num = (v) => (v == null ? '—' : Math.round(v).toLocaleString())
-export const signed = (v, d = 1) => (v == null ? '—' : (v > 0 ? '+' : '') + v.toFixed(d))
+export const pct = (v, d = 0) => (v == null ? 'N/A' : (v * 100).toFixed(d) + '%')
+export const num = (v) => (v == null ? 'N/A' : Math.round(v).toLocaleString())
+export const signed = (v, d = 1) => (v == null ? 'N/A' : (v > 0 ? '+' : '') + v.toFixed(d))
 
 // median of a numeric array (ignoring null/NaN)
 export function median(arr) {

@@ -98,13 +98,13 @@ export default function BoroughProfiles({ geo, meta, selected, onSelect }) {
   return (
     <section className="boroughs" id="boroughs">
       <div className="section-head">
-        <span className="section-num">04</span>
+        <span className="section-num">A4</span>
         <div>
           <h2 className="section-title">How the citywide pattern becomes local</h2>
           <p className="section-lede">
-            Start with two contrasting former municipalities, then open the full comparison if you
-            want it. Every tab uses the same citywide colour scale, so a colour keeps the same
-            meaning as you move across Toronto.
+            Citywide averages hide neighbourhoods with very different call demand, canopy, heat,
+            and income. Start with two contrasting former municipalities, then open all six. Every
+            tab keeps the same citywide colour scale so the comparison remains honest.
           </p>
         </div>
       </div>
@@ -180,7 +180,7 @@ export default function BoroughProfiles({ geo, meta, selected, onSelect }) {
             <CompareRow label="Tree canopy · 2018" value={g.treecanopy} city={city.treecanopy} fmt={(v) => pct(v)} higherWorse={false} />
             <CompareRow label={`Summer heat · ${heatVintage}`} value={g.temp_diff} city={city.temp_diff} fmt={(v) => signed(v) + '°C'} higherWorse />
             <CompareRow label="Low income · 2021" value={g.pctpov} city={city.pctpov} fmt={(v) => pct(v)} higherWorse />
-            <CompareRow label="Tree Equity · 2024" value={g.tes} city={city.tes} fmt={(v) => (v == null ? '—' : Math.round(v))} higherWorse={false} />
+            <CompareRow label="Tree Equity · 2024" value={g.tes} city={city.tes} fmt={(v) => (v == null ? 'N/A' : Math.round(v))} higherWorse={false} />
           </div>
 
           <div className="borough-block">
