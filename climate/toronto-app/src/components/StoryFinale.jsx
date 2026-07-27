@@ -27,7 +27,7 @@ export default function StoryFinale({ onExplore }) {
         <span className="story-finale-kicker">08 · The call to action</span>
         <h2>Protect. Prioritize. Pair.</h2>
         <p className="story-finale-lede">
-          Toronto can act on green space without pretending it is the single answer to crisis.
+          Toronto must care for green space.
           Protect it, expand it where need is greatest, and invest in social supports at the same
           time.
         </p>
