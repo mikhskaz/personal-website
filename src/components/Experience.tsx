@@ -11,13 +11,13 @@ type ExperienceType = {
 };
 
 const experiences: ExperienceType[] = [
-    {
-        title: "AI/ML Engineering Intern",
-        duration: "Jun 2026 - Present",
-        description: "Using AI in Industry.",
-        image: "/img/maneva.png",
-        skills: ["Python"]
-    },
+    // {
+    //     title: "AI/ML Engineering Intern",
+    //     duration: "Jun 2026 - Present",
+    //     description: "Using AI in Industry.",
+    //     image: "/img/maneva.png",
+    //     skills: ["Python"]
+    // },
     {
         title: "AI Software Developer",
         duration: "Jan 2026 - May 2026",
