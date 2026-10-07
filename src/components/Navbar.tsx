@@ -103,7 +103,7 @@ const NavBar = () => {
             id="resume-button"
             title="LinkedIn"
             rightIcon={<TiLocationArrow />}
-            href="https://www.linkedin.com/in/mikhail-skazhenyuk-1b44bb271/"
+            href="https://www.linkedin.com/in/mikhskaz"
             containerClass="bg-white hover:bg-primary hover:text-white"
             />
           </div>
